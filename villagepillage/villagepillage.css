@@ -63,7 +63,9 @@
 .card {
   background-image: url(img/cards.jpg);
   background-repeat: no-repeat;
-  display: block; }
+  display: block;
+  transform: scale(0.5);
+  transform-origin: 0 0; }
 
 .card_bank {
   width: 230px;
