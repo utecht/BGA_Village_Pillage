@@ -28,10 +28,17 @@
     text-align: center;
     border: 1px solid black;
     padding: 3px; }
-  .player-container .player-hand {
-    display: flex; }
-    .player-container .player-hand .foo-card {
-      margin: 2px 5px; }
+  .player-container .player-area {
+    display: flex;
+    justify-content: center;
+    max-height: 220px; }
+
+.player-hand {
+  display: flex;
+  justify-content: center;
+  max-height: 200px; }
+  .player-hand .card {
+    margin: 2px 5px; }
 
 .foo-card {
   width: 100px;

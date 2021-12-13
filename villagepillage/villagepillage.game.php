@@ -36,6 +36,7 @@ use VP\Core\Globals;
 use VP\Core\Preferences;
 use VP\Managers\Cards;
 use VP\Managers\Players;
+use VP\Managers\PlayerTokens;
 
 class villagepillage extends Table {
 	use VP\DebugTrait;
@@ -65,6 +66,7 @@ class villagepillage extends Table {
 		Globals::setupNewGame($players, $options);
 		Preferences::setupNewGame($players, $options);
 		Players::setupNewGame($players, $options);
+		PlayerTokens::setupNewGame($players, $options);
 		Cards::setupNewGame($players, $options);
 
 		$this->activeNextPlayer();
@@ -90,6 +92,10 @@ class villagepillage extends Table {
 
 	function actChangePreference($pref, $value) {
 		Preferences::set($this->getCurrentPId(), $pref, $value);
+	}
+
+	function actPlayCard($side, $cardId) {
+		Cards::play($this->getCurrentPId(), $side, $cardId);
 	}
 
 	/////////////////////////////////////////////////////////////

@@ -1,6 +1,8 @@
 <?php
 namespace VP\Managers;
 
+use VP\Helpers\UserException;
+
 /**
  * Cards: id, value, color
  *  pId is stored as second part of the location, eg : table_2322020
@@ -21,6 +23,15 @@ class Cards extends \VP\Helpers\Pieces {
 		];
 	}
 
+	public static function play($pId, $side, $cardId) {
+		$card = self::get($cardId);
+		if ($card['pId'] != $pId) {
+			throw new UserException("Attempt to play card you do not own");
+		}
+		self::moveAllInLocation([$side, $pId], ['hand', $pId]);
+		self::move($cardId, [$side, $pId]);
+	}
+
 	//////////////////////////////////
 	//////////////////////////////////
 	//////////// GETTERS //////////////
@@ -32,6 +43,14 @@ class Cards extends \VP\Helpers\Pieces {
 	 */
 	public static function getOfPlayer($pId) {
 		return self::getInLocation(['hand', $pId]);
+	}
+
+	public static function getPlayerLeft($pId) {
+		return self::getTopOf(['left', $pId]);
+	}
+
+	public static function getPlayerRight($pId) {
+		return self::getTopOf(['right', $pId]);
 	}
 
 	//////////////////////////////////

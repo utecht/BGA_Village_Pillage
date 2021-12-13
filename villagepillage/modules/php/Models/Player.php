@@ -2,6 +2,7 @@
 namespace VP\Models;
 use VP\Core\Preferences;
 use VP\Managers\Cards;
+use VP\Managers\PlayerTokens;
 
 /*
  * Player: all utility functions concerning a player
@@ -33,6 +34,9 @@ class Player extends \VP\Helpers\DB_Model {
 		$data = array_merge($data, [
 			'cards' => $current ? $this->getCards()->toArray() : [],
 		]);
+		$data = array_merge($data, $this->getTokens()->jsonSerialize());
+		$data = array_merge($data, ['left' => Cards::getPlayerLeft($this->id)]);
+		$data = array_merge($data, ['right' => Cards::getPlayerRight($this->id)]);
 
 		return $data;
 	}
@@ -43,5 +47,9 @@ class Player extends \VP\Helpers\DB_Model {
 
 	public function getCards() {
 		return Cards::getOfPlayer($this->id);
+	}
+
+	public function getTokens() {
+		return PlayerTokens::get($this->id);
 	}
 }

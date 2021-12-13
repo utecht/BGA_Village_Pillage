@@ -16,11 +16,19 @@
     padding: 3px;
   }
 
-  .player-hand {
+  .player-area {
     display: flex;
+    justify-content: center;
+    max-height: 220px;
+  }
 
-    .foo-card {
-      margin: 2px 5px;
-    }
+}
+.player-hand {
+  display: flex;
+  justify-content: center;
+  max-height: 200px;
+
+  .card {
+    margin: 2px 5px;
   }
 }

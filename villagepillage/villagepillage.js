@@ -27,8 +27,15 @@ define([
   g_gamethemeurl + 'modules/js/Core/game.js',
   g_gamethemeurl + 'modules/js/Core/modal.js',
   g_gamethemeurl + 'modules/js/Players.js',
+  g_gamethemeurl + 'modules/js/States.js',
+  g_gamethemeurl + 'modules/js/Actions.js',
+  g_gamethemeurl + 'modules/js/Utility.js',
 ], function (dojo, declare, noUiSlider) {
-  return declare('bgagame.villagepillage', [customgame.game, villagepillage.players], {
+  return declare('bgagame.villagepillage', [customgame.game,
+                                            villagepillage.players,
+                                            villagepillage.actions,
+                                            villagepillage.utility,
+                                            villagepillage.states], {
     constructor() {
       this._activeStates = [];
       this._notifications = [

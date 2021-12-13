@@ -23,4 +23,5 @@ class VillagePillageTest extends VillagePillage {
 
 $t = new VillagePillageTest();
 
+$t::setupNewGame([1, 2, 3]);
 $t::getAllDatas();

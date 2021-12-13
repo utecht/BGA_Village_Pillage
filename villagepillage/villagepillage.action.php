@@ -33,4 +33,12 @@ class action_villagepillage extends APP_GameAction {
 		$this->game->actChangePreference($pref, $value);
 		self::ajaxResponse();
 	}
+
+	public function actPlayCard() {
+		self::setAjaxMode();
+		$side = self::getArg('side', AT_alphanum, false);
+		$cardId = self::getArg('card_id', AT_posint, false);
+		$this->game->actPlayCard($side, $cardId);
+		self::ajaxResponse();
+	}
 }
