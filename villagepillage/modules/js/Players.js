@@ -30,7 +30,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplCard(card) {
       return `
-        <div class='foo-card' data-color='${card.color}' data-value='${card.value}'></div>
+        <div class='card card_${card.name}' data-color='${card.color}' data-name='${card.name}'></div>
       `;
     },
   });

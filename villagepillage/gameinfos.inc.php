@@ -36,18 +36,18 @@ $gameinfos = [
   'bgg_id' => 247342,
 
   // Players configuration that can be played (ex: 2 to 4 players)
-  'players' => [2, 3, 4, 5, 6, 7, 8, 9, 10],
+  'players' => [2, 3, 4, 5],
 
   // Suggest players to play with this number of players. Must be null if there is no such advice, or if there is only one possible player configuration.
   // NB: the automatic lobby will try first the lowest number of players if this is not specified. So you _have to_ specify this parameter if the lowest player number is not compatible with the default options.
-  'suggest_player_number' => null,
+  'suggest_player_number' => 3,
 
   // Discourage players to play with these numbers of players. Must be null if there is no such advice.
   'not_recommend_player_number' => null,
   // 'not_recommend_player_number' => array( 2, 3 ),      // <= example: this is not recommended to play this game with 2 or 3 players
 
   // Estimated game duration, in minutes (used only for the launch, afterward the real duration is computed)
-  'estimated_duration' => 30,
+  'estimated_duration' => 20,
 
   // Time in second add to a player when "giveExtraTime" is called (speed profile = fast)
   'fast_additional_time' => 30,
@@ -85,7 +85,7 @@ $gameinfos = [
   'language_dependency' => false,
 
   // Complexity of the game, from 0 (extremely simple) to 5 (extremely complex)
-  'complexity' => 3,
+  'complexity' => 1,
 
   // Luck of the game, from 0 (absolutely no luck in this game) to 5 (totally luck driven)
   'luck' => 3,
@@ -128,9 +128,8 @@ $gameinfos = [
   // Each paragraph must be wrapped with totranslate() for translation and should not contain html (plain text without formatting).
   // A good length for this text is between 100 and 150 words (about 6 to 9 lines on a standard display)
   'presentation' => [
-    //    totranslate("This wonderful game is about geometric shapes!"),
-    //    totranslate("It was awarded best triangle game of the year in 2005 and nominated for the Spiel des Jahres."),
-    //    ...
+    totranslate("Protect your borders, attack your neighbors, and be the first to collect three turnip relics!"),
+    totranslate("Village Pillage is a 2-5 player game for players 10 and up, featuring simultaneous play and action on all fronts. Each turn, players simultaneously choose two cards from their hand and play one against each neighbor. All cards are revealed at once, then resolved in order: Farmers, Walls, Raiders, Merchants. Farmers produce turnips, Walls block Raiders, Raiders steal turnips, and Merchants either add new cards to your hand or help you purchase a relic. All cards return to hand, and the next round begins! The game ends as soon as any one player has three royal relics.")
   ],
 
   // Games categories

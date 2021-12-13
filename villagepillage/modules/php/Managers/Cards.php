@@ -13,7 +13,7 @@ class Cards extends \VP\Helpers\Pieces
 {
   protected static $table = 'cards';
   protected static $prefix = 'card_';
-  protected static $customFields = ['value', 'color'];
+  protected static $customFields = ['name', 'color'];
   protected static $autoreshuffle = false;
   protected static function cast($card)
   {
@@ -21,7 +21,7 @@ class Cards extends \VP\Helpers\Pieces
     return [
       'id' => $card['id'],
       'location' => $locations[0],
-      'value' => $card['value'],
+      'name' => $card['name'],
       'color' => $card['color'],
       'pId' => $locations[1] ?? null,
     ];
@@ -50,33 +50,15 @@ class Cards extends \VP\Helpers\Pieces
   /**
    * setupNewGame: create the deck of cards
    */
-  public function setupNewGame($players, $options)
-  {
-    $colors = [
-      CARD_BLUE => 9,
-      CARD_GREEN => 9,
-      CARD_PINK => 9,
-      CARD_YELLOW => 9,
-      CARD_SUBMARINE => 4,
-    ];
+  public function setupNewGame($players, $options){
 
-    $cards = [];
-    foreach ($colors as $cId => $maxValue) {
-      for ($value = 1; $value <= $maxValue; $value++) {
-        $cards[] = [
-          'value' => $value,
-          'color' => $cId,
-          //          'player_id' => null,
-        ];
-      }
-    }
-
-    self::create($cards, 'deck');
-    self::shuffle('deck');
-
-    // Draw each player 5 cards
     foreach ($players as $pId => $player) {
-      self::pickForLocation(4, 'deck', ['hand', $pId]);
+      $cards = [];
+      $cards[] = ['name' => 'farmer', 'color' => CARD_GREEN];
+      $cards[] = ['name' => 'raider', 'color' => CARD_RED];
+      $cards[] = ['name' => 'wall', 'color' => CARD_BLUE];
+      $cards[] = ['name' => 'merchant', 'color' => CARD_YELLOW];
+      self::create($cards, ['hand', $pId]);
     }
   }
 }
