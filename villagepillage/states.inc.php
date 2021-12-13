@@ -15,31 +15,31 @@
  */
 
 $machinestates = [
-  // The initial state. Please do not modify.
-  ST_GAME_SETUP => [
-    'name' => 'gameSetup',
-    'description' => '',
-    'type' => 'manager',
-    'action' => 'stGameSetup',
-    'transitions' => ['' => ST_VP],
-  ],
+	// The initial state. Please do not modify.
+	ST_GAME_SETUP => [
+		'name' => 'gameSetup',
+		'description' => '',
+		'type' => 'manager',
+		'action' => 'stGameSetup',
+		'transitions' => ['' => ST_VP],
+	],
 
-  ST_VP => [
-    'name' => 'playerTurn',
-    'description' => clienttranslate('${actplayer} must play a card or pass'),
-    'descriptionmyturn' => clienttranslate('${you} must play a card or pass'),
-    'type' => 'activeplayer',
-    'possibleactions' => ['actPlayCard', 'actPpass'],
-    'transitions' => ['done' => ST_VP],
-  ],
+	ST_VP => [
+		'name' => 'playerTurn',
+		'description' => clienttranslate('${actplayer} must play a card or pass'),
+		'descriptionmyturn' => clienttranslate('${you} must play a card or pass'),
+		'type' => 'activeplayer',
+		'possibleactions' => ['actPlayCard', 'actPpass'],
+		'transitions' => ['done' => ST_VP],
+	],
 
-  // Final state.
-  // Please do not modify (and do not overload action/args methods).
-  ST_END_GAME => [
-    'name' => 'gameEnd',
-    'description' => clienttranslate('End of game'),
-    'type' => 'manager',
-    'action' => 'stGameEnd',
-    'args' => 'argGameEnd',
-  ],
+	// Final state.
+	// Please do not modify (and do not overload action/args methods).
+	ST_END_GAME => [
+		'name' => 'gameEnd',
+		'description' => clienttranslate('End of game'),
+		'type' => 'manager',
+		'action' => 'stGameEnd',
+		'args' => 'argGameEnd',
+	],
 ];
