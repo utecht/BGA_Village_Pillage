@@ -40,7 +40,7 @@ use VP\Managers\PlayerTokens;
 
 class villagepillage extends Table {
 	use VP\DebugTrait;
-	use VP\States\DrawCardTrait;
+	use VP\States\FarmersTrait;
 
 	public static $instance = null;
 	function __construct() {

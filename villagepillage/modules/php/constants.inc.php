@@ -4,7 +4,11 @@
  * ST constants
  */
 const ST_GAME_SETUP = 1;
-const ST_VP = 2;
+const ST_CARD_PLAY = 2;
+const ST_FARMERS = 3;
+const ST_WALLS = 4;
+const ST_RAIDERS = 5;
+const ST_MERCHANTS = 6;
 
 const ST_END_GAME = 99;
 

@@ -1,6 +1,9 @@
 <?php
 namespace VP\Notifications;
+use VP\Core\Game;
 use VP\Core\Notifications;
+use VP\Managers\Cards;
+use VP\Managers\Players;
 
 class PlayCard extends \VP\Core\Notifications {
 	public static function playCard($player, $card) {
@@ -13,6 +16,8 @@ class PlayCard extends \VP\Core\Notifications {
 			"player" => $player,
 			"card_location" => $card_location,
 		]);
+		if (Cards::countPlayed() == (Players::count() * 2)) {
+			Game::get()->gamestate->nextState("done");
+		}
 	}
-
 }

@@ -21,16 +21,48 @@ $machinestates = [
 		'description' => '',
 		'type' => 'manager',
 		'action' => 'stGameSetup',
-		'transitions' => ['' => ST_VP],
+		'transitions' => ['' => ST_CARD_PLAY],
 	],
 
-	ST_VP => [
+	ST_CARD_PLAY => [
 		'name' => 'playerTurn',
-		'description' => clienttranslate('${actplayer} must play a card or pass'),
-		'descriptionmyturn' => clienttranslate('${you} must play a card or pass'),
+		'description' => clienttranslate('All players must play cards'),
+		'descriptionmyturn' => clienttranslate('All players must play cards'),
 		'type' => 'multipleactiveplayer',
-		'possibleactions' => ['actPlayCard', 'actPpass'],
-		'transitions' => ['done' => ST_VP],
+		'possibleactions' => ['actPlayCard'],
+		'transitions' => ['done' => ST_FARMERS],
+	],
+
+	ST_FARMERS => [
+		'name' => 'farmers',
+		'description' => clienttranslate('Activating farmers'),
+		'type' => 'manager',
+		'action' => 'stFarmers',
+		'transitions' => ['done' => ST_WALLS],
+	],
+
+	ST_WALLS => [
+		'name' => 'walls',
+		'description' => clienttranslate('Activating walls'),
+		'type' => 'manager',
+		'action' => 'stWalls',
+		'transitions' => ['done' => ST_RAIDERS],
+	],
+
+	ST_RAIDERS => [
+		'name' => 'raiders',
+		'description' => clienttranslate('Activating raiders'),
+		'type' => 'manager',
+		'action' => 'stRaiders',
+		'transitions' => ['done' => ST_MERCHANTS],
+	],
+
+	ST_MERCHANTS => [
+		'name' => 'merchants',
+		'description' => clienttranslate('Activating merchants'),
+		'type' => 'manager',
+		'action' => 'stMerchants',
+		'transitions' => ['done' => ST_CARD_PLAY],
 	],
 
 	// Final state.

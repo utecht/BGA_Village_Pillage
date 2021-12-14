@@ -20,9 +20,21 @@
     display: flex;
     justify-content: center;
     max-height: 220px;
-  }
 
+    .bank-wrap {
+      width: 115px;
+    }
+
+    .player-left {
+      width: 115px;
+    }
+
+    .player-right {
+      width: 115px;
+    }
+  }
 }
+
 .player-hand {
   display: flex;
   justify-content: center;

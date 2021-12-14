@@ -58,6 +58,12 @@ class Cards extends \VP\Helpers\Pieces {
 		return self::getTopOf(['right', $pId]);
 	}
 
+	public static function countPlayed() {
+		$query = self::getSelectQuery();
+		$query = $query->where(static::$prefix . 'location', 'LIKE', 'hand%');
+		return $query->count();
+	}
+
 	//////////////////////////////////
 	//////////////////////////////////
 	///////////// SETTERS //////////////

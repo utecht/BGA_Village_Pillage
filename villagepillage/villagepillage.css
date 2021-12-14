@@ -32,6 +32,12 @@
     display: flex;
     justify-content: center;
     max-height: 220px; }
+    .player-container .player-area .bank-wrap {
+      width: 115px; }
+    .player-container .player-area .player-left {
+      width: 115px; }
+    .player-container .player-area .player-right {
+      width: 115px; }
 
 .player-hand {
   display: flex;

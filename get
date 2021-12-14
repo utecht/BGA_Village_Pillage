@@ -1,0 +1,1 @@
+villagepillage/modules/php/Notifications/PlayCard.php:			Game->get()->gamestate->nextState("endGame");
