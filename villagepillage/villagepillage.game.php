@@ -69,7 +69,7 @@ class villagepillage extends Table {
 		PlayerTokens::setupNewGame($players, $options);
 		Cards::setupNewGame($players, $options);
 
-		$this->activeNextPlayer();
+		$this->gamestate->setAllPlayersMultiactive();
 	}
 
 	/*

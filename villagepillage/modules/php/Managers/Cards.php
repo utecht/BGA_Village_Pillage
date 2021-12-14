@@ -2,6 +2,8 @@
 namespace VP\Managers;
 
 use VP\Helpers\UserException;
+use VP\Managers\Players;
+use VP\Notifications\PlayCard;
 
 /**
  * Cards: id, value, color
@@ -25,11 +27,14 @@ class Cards extends \VP\Helpers\Pieces {
 
 	public static function play($pId, $side, $cardId) {
 		$card = self::get($cardId);
+		$player = Players::get($pId);
 		if ($card['pId'] != $pId) {
 			throw new UserException("Attempt to play card you do not own");
 		}
 		self::moveAllInLocation([$side, $pId], ['hand', $pId]);
 		self::move($cardId, [$side, $pId]);
+		$card['location'] = $side;
+		PlayCard::playCard($player, $card);
 	}
 
 	//////////////////////////////////

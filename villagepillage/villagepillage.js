@@ -29,17 +29,20 @@ define([
   g_gamethemeurl + 'modules/js/Players.js',
   g_gamethemeurl + 'modules/js/States.js',
   g_gamethemeurl + 'modules/js/Actions.js',
+  g_gamethemeurl + 'modules/js/Notifications.js',
   g_gamethemeurl + 'modules/js/Utility.js',
 ], function (dojo, declare, noUiSlider) {
   return declare('bgagame.villagepillage', [customgame.game,
                                             villagepillage.players,
                                             villagepillage.actions,
+                                            villagepillage.notifications,
                                             villagepillage.utility,
                                             villagepillage.states], {
     constructor() {
       this._activeStates = [];
       this._notifications = [
-        //['revealActionCard', 1100],
+        ['playCard', 50],
+        ['playMyCard', 50],
       ];
 
       // Fix mobile viewport (remove CSS zoom)

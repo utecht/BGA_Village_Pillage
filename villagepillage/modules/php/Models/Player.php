@@ -35,8 +35,12 @@ class Player extends \VP\Helpers\DB_Model {
 			'cards' => $current ? $this->getCards()->toArray() : [],
 		]);
 		$data = array_merge($data, $this->getTokens()->jsonSerialize());
-		$data = array_merge($data, ['left' => Cards::getPlayerLeft($this->id)]);
-		$data = array_merge($data, ['right' => Cards::getPlayerRight($this->id)]);
+		$left = Cards::getPlayerLeft($this->id);
+		$left_count = $left ? 1 : 0;
+		$data = array_merge($data, ['left' => $current ? $left : $left_count]);
+		$right = Cards::getPlayerRight($this->id);
+		$right_count = $right ? 1 : 0;
+		$data = array_merge($data, ['right' => $current ? $right : $right_count]);
 
 		return $data;
 	}

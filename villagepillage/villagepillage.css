@@ -67,6 +67,14 @@
     margin-top: 5px;
     margin-left: 5px; }
 
+.selected-card {
+  border: 1px solid blue; }
+
+.placeholder {
+  width: 100px;
+  height: 150px;
+  background-color: black; }
+
 .card {
   background-image: url(img/cards.jpg);
   background-repeat: no-repeat;
