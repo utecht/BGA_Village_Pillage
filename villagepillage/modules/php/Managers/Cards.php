@@ -16,13 +16,18 @@ class Cards extends \VP\Helpers\Pieces {
 	protected static $autoreshuffle = false;
 	protected static function cast($card) {
 		$locations = explode('_', $card['location']);
-		return [
+		$class_parts = explode('_', $card['name']);
+		$class_name = '';
+		foreach($class_parts as $part){
+			$class_name .= ucfirst($part);
+		}
+		return new \VP\Cards\$class_name([
 			'id' => $card['id'],
 			'location' => $locations[0],
 			'name' => $card['name'],
 			'color' => $card['color'],
 			'pId' => $locations[1] ?? null,
-		];
+		]);
 	}
 
 	public static function play($pId, $side, $cardId) {

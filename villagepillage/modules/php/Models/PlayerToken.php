@@ -11,8 +11,6 @@ class PlayerToken extends \VP\Helpers\DB_Model {
 		'player_id' => 'player_id',
 		'supply_turnips' => 'supply_turnips',
 		'bank_turnips' => 'bank_turnips',
-		'supply_inc' => 'supply_inc',
-		'bank_inc' => 'bank_inc',
 		'relic_state' => 'relic_state',
 	];
 

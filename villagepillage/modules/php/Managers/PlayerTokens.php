@@ -20,14 +20,12 @@ class PlayerTokens extends \VP\Helpers\DB_Manager {
 			'player_id',
 			'supply_turnips',
 			'bank_turnips',
-			'supply_inc',
-			'bank_inc',
 			'relic_state',
 		]);
 
 		$values = [];
 		foreach ($players as $pId => $player) {
-			$values[] = [$pId, 1, 1, 0, 0, RELIC_NO];
+			$values[] = [$pId, 1, 1, RELIC_NO];
 		}
 		$query->values($values);
 	}
