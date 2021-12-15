@@ -19,19 +19,19 @@ abstract class Card {
 		}
 	}
 
-	public function farm() {
+	public function farm($player, $opposing_card, $opposing_player) {
 
 	}
 
-	public function wall() {
+	public function wall($player, $opposing_card, $opposing_player) {
 
 	}
 
-	public function raid() {
+	public function raid($player, $opposing_card, $opposing_player) {
 
 	}
 
-	public function merchant() {
+	public function merchant($player, $opposing_card, $opposing_player) {
 
 	}
 }

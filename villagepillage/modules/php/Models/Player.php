@@ -20,6 +20,7 @@ class Player extends \VP\Helpers\DB_Model {
 		'score' => 'player_score',
 		'zombie' => 'player_zombie',
 	];
+	protected $income = 0;
 
 	/*
 		   * Getters
@@ -55,5 +56,9 @@ class Player extends \VP\Helpers\DB_Model {
 
 	public function getTokens() {
 		return PlayerTokens::get($this->id);
+	}
+
+	public function income($amount) {
+		self::income += $amount;
 	}
 }
