@@ -4,10 +4,13 @@ namespace VP\States;
 use VP\Core\Game;
 use VP\Managers\Players;
 
-trait FarmersTrait {
-	function stFarmers() {
+trait RaidersTrait {
+	function stRaiders() {
 		$players = Players::getAll();
-		Game::processTurn('farm', $players);
+		Game::processTurn('raid', $players);
+		foreach ($players as $player) {
+			$player->payThieves();
+		}
 		foreach ($players as $player) {
 			$player->updateIncome();
 		}

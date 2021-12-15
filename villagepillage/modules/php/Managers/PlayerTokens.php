@@ -18,8 +18,8 @@ class PlayerTokens extends \VP\Helpers\DB_Manager {
 		$gameInfos = Game::get()->getGameinfos();
 		$query = self::DB()->multipleInsert([
 			'player_id',
-			'supply_turnips',
-			'bank_turnips',
+			'supply',
+			'bank',
 			'relic_state',
 		]);
 

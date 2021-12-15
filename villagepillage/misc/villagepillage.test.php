@@ -22,3 +22,4 @@ class VillagePillageTest extends VillagePillage {
 }
 
 $t = new VillagePillageTest();
+$p = new \VP\Models\Player([]);

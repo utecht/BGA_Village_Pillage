@@ -13,25 +13,61 @@ abstract class Card {
 		'pId' => 'pId',
 	];
 
-	public function __construct($card) {
+	public function __construct($row) {
 		foreach ($this->attributes as $attribute => $field) {
-			$this->$attribute = $card[$field] ?? null;
+			$this->$attribute = $row[$field] ?? null;
 		}
 	}
 
-	public function farm($player, $opposing_card, $opposing_player) {
+	public function __call($method, $args) {
+		if (preg_match('/^([gs]et|inc|is)([A-Z])(.*)$/', $method, $match)) {
+			// Sanity check : does the name correspond to a declared variable ?
+			$name = strtolower($match[2]) . $match[3];
+			if (!\array_key_exists($name, $this->attributes)) {
+				throw new \InvalidArgumentException("Attribute {$name} doesn't exist");
+			}
 
+			if ($match[1] == 'get') {
+				// Basic getters
+				return $this->$name;
+			} elseif ($match[1] == 'is') {
+				// Boolean getter
+				return (bool) ($this->$name == 1);
+			} elseif ($match[1] == 'set') {
+				// Setters in DB and update cache
+				$value = $args[0];
+				$this->$name = $value;
+
+				$updateValue = $value;
+				if ($value != null) {
+					$updateValue = \addslashes($value);
+				}
+				return $value;
+			} elseif ($match[1] == 'inc') {
+				$getter = 'get' . $match[2] . $match[3];
+				$setter = 'set' . $match[2] . $match[3];
+				return $this->$setter($this->$getter() + (empty($args) ? 1 : $args[0]));
+			}
+		} else {
+			throw new \feException('Undefined method ' . $method);
+			return null;
+		}
 	}
 
-	public function wall($player, $opposing_card, $opposing_player) {
+	public function jsonSerialize() {
+		$data = [];
+		foreach ($this->attributes as $attribute => $field) {
+			$data[$attribute] = $this->$attribute;
+		}
 
+		return $data;
 	}
 
-	public function raid($player, $opposing_card, $opposing_player) {
+	public function farm(&$player, $opposing_card, &$opposing_player) {}
 
-	}
+	public function wall(&$player, $opposing_card, &$opposing_player) {}
 
-	public function merchant($player, $opposing_card, $opposing_player) {
+	public function raid(&$player, $opposing_card, &$opposing_player) {}
 
-	}
+	public function merchant(&$player, $opposing_card, &$opposing_player) {}
 }

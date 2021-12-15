@@ -18,10 +18,11 @@ class Cards extends \VP\Helpers\Pieces {
 		$locations = explode('_', $card['location']);
 		$class_parts = explode('_', $card['name']);
 		$class_name = '';
-		foreach($class_parts as $part){
+		foreach ($class_parts as $part) {
 			$class_name .= ucfirst($part);
 		}
-		return new \VP\Cards\$class_name([
+		$class_name = "\VP\Cards\\$class_name";
+		return new $class_name([
 			'id' => $card['id'],
 			'location' => $locations[0],
 			'name' => $card['name'],
@@ -33,12 +34,12 @@ class Cards extends \VP\Helpers\Pieces {
 	public static function play($pId, $side, $cardId) {
 		$card = self::get($cardId);
 		$player = Players::get($pId);
-		if ($card['pId'] != $pId) {
+		if ($card->getPId() != $pId) {
 			throw new UserException("Attempt to play card you do not own");
 		}
 		self::moveAllInLocation([$side, $pId], ['hand', $pId]);
 		self::move($cardId, [$side, $pId]);
-		$card['location'] = $side;
+		$card->setLocation($side);
 		PlayCard::playCard($player, $card);
 	}
 

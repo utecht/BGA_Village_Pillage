@@ -41,6 +41,9 @@ use VP\Managers\PlayerTokens;
 class villagepillage extends Table {
 	use VP\DebugTrait;
 	use VP\States\FarmersTrait;
+	use VP\States\WallsTrait;
+	use VP\States\RaidersTrait;
+	use VP\States\MerchantsTrait;
 
 	public static $instance = null;
 	function __construct() {

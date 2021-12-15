@@ -11,7 +11,7 @@ class PlayCard extends \VP\Core\Notifications {
 			"player" => $player,
 			"card" => $card,
 		]);
-		$card_location = $card['location'];
+		$card_location = $card->getLocation();
 		self::notifyAll('playCard', '${player_name} played to ${card_location}', [
 			"player" => $player,
 			"card_location" => $card_location,

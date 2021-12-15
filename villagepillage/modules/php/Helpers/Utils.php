@@ -28,4 +28,12 @@ abstract class Utils extends \APP_DbObject {
 		$array = $new;
 		return true;
 	}
+
+	public static function amod($a, $b) {
+		$r = $a % $b;
+		if ($r < 0) {
+			$r += abs($b);
+		}
+		return $r;
+	}
 }
