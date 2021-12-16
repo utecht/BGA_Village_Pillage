@@ -95,6 +95,8 @@ class Player extends \VP\Helpers\DB_Model {
 			$remaining = $amount - $token->supply;
 			$token->incSupply($token->supply * -1);
 			$token->incBank($remaining * -1);
+		} else {
+			$token->incSupply($amount * -1);
 		}
 	}
 
