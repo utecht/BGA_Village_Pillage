@@ -16,4 +16,8 @@ trait MerchantsTrait {
 		Refresh::refresh();
 		Game::get()->gamestate->nextState("done");
 	}
+
+	function stRunMerchant() {
+		Game::get()->gamestate->nextState("done");
+	}
 }

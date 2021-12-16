@@ -71,9 +71,11 @@ class Cards extends \VP\Helpers\Pieces {
 	public static function refreshHands($players) {
 		foreach ($players as $player) {
 			$pId = $player->getId();
+			self::moveAllInLocation(['exhausted', $pId], ['hand', $pId]);
+			self::moveAllInLocation(['left', $pId], ['exhausted', $pId], CARD_EXHAUSTED);
+			self::moveAllInLocation(['right', $pId], ['exhausted', $pId], CARD_EXHAUSTED);
 			self::moveAllInLocation(['left', $pId], ['hand', $pId]);
 			self::moveAllInLocation(['right', $pId], ['hand', $pId]);
-			// TODO: add exhaustion check
 		}
 	}
 

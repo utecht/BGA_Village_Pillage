@@ -60,6 +60,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
             <div class='player-left' id="player-left-${player.id}"><span>Play Left Card</span></div>
             <div id="player-bank-area-${player.id}"></div>
             <div class='player-right' id="player-right-${player.id}"><span>Play Right Card</span></div>
+            <div class='player-exhausted' id="player-exhausted-${player.id}"><span>Exhausted Cards</span></div>
           </div>
         </div>
       `;

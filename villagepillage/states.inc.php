@@ -62,7 +62,35 @@ $machinestates = [
 		'description' => clienttranslate('Activating merchants'),
 		'type' => 'manager',
 		'action' => 'stMerchants',
-		'transitions' => ['done' => ST_CARD_PLAY],
+		'transitions' => ['done' => ST_RUN_MERCHANT, 'multi' => ST_MERCHANT_PICK],
+	],
+
+	ST_RUN_MERCHANT => [
+		'name' => 'run_merchant',
+		'description' => clienttranslate('Running merchant'),
+		'type' => 'manager',
+		'action' => 'stRunMerchant',
+		'transitions' => ['buy' => ST_BUY, 'more' => ST_RUN_MERCHANT, 'done' => ST_CARD_PLAY],
+	],
+
+	ST_BUY => [
+		'name' => 'merchant_buy',
+		'description' => clienttranslate('Player must buy a card'),
+		'descriptionmyturn' => clienttranslate('You must buy a card'),
+		'type' => 'activeplayer',
+		'args' => 'argBuy',
+		'possibleactions' => ['actBuyCard'],
+		'transitions' => ['done' => ST_RUN_MERCHANT],
+	],
+
+	ST_MERCHANT_PICK => [
+		'name' => 'merchant_buy',
+		'description' => clienttranslate('Players must pick first merchant to activate'),
+		'descriptionmyturn' => clienttranslate('You must pick first merchant to activate'),
+		'type' => 'multipleactiveplayer',
+		'args' => 'argMulti',
+		'possibleactions' => ['actPickFirst'],
+		'transitions' => ['done' => ST_RUN_MERCHANT],
 	],
 
 	// Final state.

@@ -33,13 +33,18 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_refresh(args){
-      dojo.query('.other-player-card').forEach(dojo.destroy);
       const player_id = this.player_id;
       const player_hand = `player-hand-${player_id}`;
       const player_left = `player-left-${player_id}`;
       const player_right = `player-right-${player_id}`;
       this.slide(player_left, player_hand);
       this.slide(player_right, player_hand);
+      for(const card_id in args.args.exhausted){
+        const card = args.args.cards[card_id];
+        this.slide(`card_${card_id}`, `player-exhausted-${card.pId}`);
+      }
+      dojo.query('.player-left .other-player-card').forEach(dojo.destroy);
+      dojo.query('.player-right .other-player-card').forEach(dojo.destroy);
     },
 
     notif_gain(args){
