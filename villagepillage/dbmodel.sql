@@ -46,6 +46,6 @@ CREATE TABLE IF NOT EXISTS `player_tokens` (
   `player_id` int(10) NOT NULL,
   `supply` int(10) NOT NULL,
   `bank` int(10) NOT NULL,
-  `relic_state` int(10) NOT NULL,
+  `relic` int(10) NOT NULL,
   PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

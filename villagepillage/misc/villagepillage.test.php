@@ -22,4 +22,6 @@ class VillagePillageTest extends VillagePillage {
 }
 
 $t = new VillagePillageTest();
-$p = new \VP\Models\Player([]);
+
+$location = ['hand', '%'];
+echo \VP\Helpers\Pieces::checkLocation($location, true);

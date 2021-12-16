@@ -43,6 +43,12 @@ define([
       this._notifications = [
         ['playCard', 50],
         ['playMyCard', 50],
+        ['refresh', 500],
+        ['gain', 500],
+        ['steal', 500],
+        ['bank', 500],
+        ['buyRelic', 500],
+        ['reveal', 1000],
       ];
 
       // Fix mobile viewport (remove CSS zoom)

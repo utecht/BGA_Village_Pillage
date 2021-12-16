@@ -20,7 +20,7 @@ class PlayerTokens extends \VP\Helpers\DB_Manager {
 			'player_id',
 			'supply',
 			'bank',
-			'relic_state',
+			'relic',
 		]);
 
 		$values = [];

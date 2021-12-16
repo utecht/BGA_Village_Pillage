@@ -84,6 +84,44 @@ class Player extends \VP\Helpers\DB_Model {
 		$this->bankIncome = 0;
 	}
 
+	public function getTurnips() {
+		$token = $this->getToken();
+		return $token->supply + $token->bank;
+	}
+
+	public function spendTurnips($amount) {
+		$token = $this->getToken();
+		if ($amount > $token->supply) {
+			$remaining = $amount - $token->supply;
+			$token->incSupply($token->supply * -1);
+			$token->incBank($remaining * -1);
+		}
+	}
+
+	protected function relicCost($token) {
+		$relic_cost = 8;
+		if ($token->relic == RELIC_ONE) {
+			$relic_cost = 9;
+		} else if ($token->relic == RELIC_TWO) {
+			$relic_cost = 10;
+		} else if ($token->relic == RELIC_THREE) {
+			return false;
+		}
+		return $relic_cost;
+	}
+
+	public function buyRelic($discount) {
+		$token = $this->getToken();
+		$relic_cost = $this->relicCost($token);
+		$relic_cost -= $discount;
+		if ($this->getTurnips() >= $relic_cost) {
+			$token->incRelic(1);
+			$this->spendTurnips($relic_cost);
+			return $relic_cost;
+		}
+		return false;
+	}
+
 	public function steal(&$stealing_player, $amount) {
 		$this->stolen[] = ['player' => $stealing_player, 'amount' => $amount];
 	}

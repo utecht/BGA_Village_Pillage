@@ -7,13 +7,7 @@ use VP\Managers\Players;
 trait RaidersTrait {
 	function stRaiders() {
 		$players = Players::getAll();
-		Game::processTurn('raid', $players);
-		foreach ($players as $player) {
-			$player->payThieves();
-		}
-		foreach ($players as $player) {
-			$player->updateIncome();
-		}
+		Game::doActions(CARD_RED, $players);
 		Game::get()->gamestate->nextState("done");
 	}
 }

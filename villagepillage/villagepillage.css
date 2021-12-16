@@ -34,6 +34,9 @@
     max-height: 220px; }
     .player-container .player-area .bank-wrap {
       width: 115px; }
+    .player-container .player-area .player-bank {
+      display: flex;
+      flex-direction: column; }
     .player-container .player-area .player-left {
       width: 115px; }
     .player-container .player-area .player-right {

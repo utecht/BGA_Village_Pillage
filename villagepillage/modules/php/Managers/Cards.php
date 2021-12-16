@@ -1,6 +1,7 @@
 <?php
 namespace VP\Managers;
 
+use VP\Core\Game;
 use VP\Helpers\UserException;
 use VP\Managers\Players;
 use VP\Notifications\PlayCard;
@@ -41,6 +42,9 @@ class Cards extends \VP\Helpers\Pieces {
 		self::move($cardId, [$side, $pId]);
 		$card->setLocation($side);
 		PlayCard::playCard($player, $card);
+		if (self::countInLocation(['hand', '%']) == (Players::count() * 2)) {
+			Game::get()->gamestate->nextState("done");
+		}
 	}
 
 	//////////////////////////////////
@@ -64,10 +68,13 @@ class Cards extends \VP\Helpers\Pieces {
 		return self::getTopOf(['right', $pId]);
 	}
 
-	public static function countPlayed() {
-		$query = self::getSelectQuery();
-		$query = $query->where(static::$prefix . 'location', 'LIKE', 'hand%');
-		return $query->count();
+	public static function refreshHands($players) {
+		foreach ($players as $player) {
+			$pId = $player->getId();
+			self::moveAllInLocation(['left', $pId], ['hand', $pId]);
+			self::moveAllInLocation(['right', $pId], ['hand', $pId]);
+			// TODO: add exhaustion check
+		}
 	}
 
 	//////////////////////////////////

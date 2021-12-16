@@ -63,11 +63,11 @@ abstract class Card {
 		return $data;
 	}
 
-	public function farm(&$player, $opposing_card, &$opposing_player) {}
+	public function gain(&$player, $opposing_card, &$opposing_player) {}
 
-	public function wall(&$player, $opposing_card, &$opposing_player) {}
+	public function steal(&$player, $opposing_card, &$opposing_player) {}
 
-	public function raid(&$player, $opposing_card, &$opposing_player) {}
+	public function bank(&$player, $opposing_card, &$opposing_player) {}
 
-	public function merchant(&$player, $opposing_card, &$opposing_player) {}
+	public function buy(&$player, $opposing_card, &$opposing_player) {}
 }

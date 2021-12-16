@@ -35,7 +35,7 @@ class Notifications {
 		if (isset($args['player'])) {
 			$args['player_name'] = $args['player']->getName();
 			$args['player_id'] = $args['player']->getId();
-			unset($args['player']);
+			$args['player'] = $args['player']->jsonSerialize();
 		}
 
 		if (isset($args['card'])) {
