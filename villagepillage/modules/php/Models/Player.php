@@ -48,6 +48,12 @@ class Player extends \VP\Helpers\DB_Model {
 		return $data;
 	}
 
+	public function tokenSerialize() {
+		$data = parent::jsonSerialize();
+		$data = array_merge($data, $this->getToken()->jsonSerialize());
+		return $data;
+	}
+
 	public function getId() {
 		return (int) parent::getId();
 	}
@@ -79,6 +85,9 @@ class Player extends \VP\Helpers\DB_Model {
 		if ($available_supply < $this->bankIncome) {
 			$this->bankIncome = $available_supply;
 		}
+		if ($this->bankIncome + $token->bank > 5) {
+			$this->bankIncome = 5 - $token->bank;
+		}
 		$token->incSupply($this->bankIncome * -1);
 		$token->incBank($this->bankIncome);
 		$this->bankIncome = 0;
@@ -101,20 +110,24 @@ class Player extends \VP\Helpers\DB_Model {
 	}
 
 	protected function relicCost($token) {
-		$relic_cost = 8;
-		if ($token->relic == RELIC_ONE) {
-			$relic_cost = 9;
+		if ($token->relic == RELIC_NO) {
+			return 8;
+		} else if ($token->relic == RELIC_ONE) {
+			return 9;
 		} else if ($token->relic == RELIC_TWO) {
-			$relic_cost = 10;
+			return 10;
 		} else if ($token->relic == RELIC_THREE) {
 			return false;
 		}
-		return $relic_cost;
+		return false;
 	}
 
 	public function buyRelic($discount) {
 		$token = $this->getToken();
 		$relic_cost = $this->relicCost($token);
+		if ($relic_cost === false) {
+			return false;
+		}
 		$relic_cost -= $discount;
 		if ($this->getTurnips() >= $relic_cost) {
 			$token->incRelic(1);
