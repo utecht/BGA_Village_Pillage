@@ -47,6 +47,10 @@ define([
         ['gain', 500],
         ['steal', 500],
         ['bank', 500],
+        ['buyCard', 500],
+        ['gainCard', 500],
+        ['gainMyCard', 500],
+        ['poor', 500],
         ['buyRelic', 500],
         ['reveal', 1000],
       ];
@@ -65,7 +69,7 @@ define([
      */
     setup(gamedatas) {
       debug('SETUP', gamedatas);
-      this.setupMarket();
+      this.setupMarket(gamedatas.market);
       this.setupPlayers();
       this.inherited(arguments);
     },

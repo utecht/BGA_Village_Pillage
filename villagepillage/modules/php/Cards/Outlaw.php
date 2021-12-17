@@ -4,6 +4,9 @@ use VP\Models\Card;
 use VP\Notifications\Steal;
 
 class Outlaw extends Card {
+
+	public $buyPrice = 0;
+
 	public function steal(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_GREEN) {
 			$opposing_player->steal($player, 5);
@@ -16,7 +19,7 @@ class Outlaw extends Card {
 	}
 	public function buy(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_YELLOW) {
-			// TODO: buy card for free
+			return true;
 		}
 	}
 }

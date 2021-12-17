@@ -29,6 +29,7 @@ $machinestates = [
 		'description' => clienttranslate('All players must play cards'),
 		'descriptionmyturn' => clienttranslate('All players must play cards'),
 		'type' => 'multipleactiveplayer',
+		'args' => 'argPlayerTurn',
 		'possibleactions' => ['actPlayCard'],
 		'transitions' => ['done' => ST_FARMERS],
 	],
@@ -74,7 +75,7 @@ $machinestates = [
 	],
 
 	ST_BUY => [
-		'name' => 'merchant_buy',
+		'name' => 'buy',
 		'description' => clienttranslate('${actplayer} must buy a card'),
 		'descriptionmyturn' => clienttranslate('You must buy a card'),
 		'type' => 'activeplayer',

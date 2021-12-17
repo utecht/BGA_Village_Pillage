@@ -88,6 +88,12 @@ class villagepillage extends Table {
 		];
 	}
 
+	function argPlayerTurn() {
+		return [
+			'market' => Cards::getInLocation(['market']),
+		];
+	}
+
 	/*
 		   * getGameProgression:
 	*/
@@ -101,6 +107,10 @@ class villagepillage extends Table {
 
 	function actPlayCard($side, $cardId) {
 		Cards::play($this->getCurrentPId(), $side, $cardId);
+	}
+
+	function actBuyCard($cardId) {
+		Cards::buy($this->getCurrentPId(), $cardId);
 	}
 
 	/////////////////////////////////////////////////////////////

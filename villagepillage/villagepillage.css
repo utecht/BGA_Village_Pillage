@@ -19,418 +19,345 @@
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   border-width: 1px;
-  border-style: solid;
-}
-.player-container .player-name {
-  background-color: white;
-  border-radius: 5px;
-  width: 100px;
-  margin: 5px;
-  text-align: center;
-  border: 1px solid black;
-  padding: 3px;
-}
-.player-container .player-area {
-  display: flex;
-  justify-content: center;
-  max-height: 220px;
-}
-.player-container .player-area .bank-wrap {
-  width: 115px;
-}
-.player-container .player-area .player-bank {
-  display: flex;
-  flex-direction: column;
-}
-.player-container .player-area .player-left {
-  width: 115px;
-}
-.player-container .player-area .player-right {
-  width: 115px;
-}
+  border-style: solid; }
+  .player-container .player-name {
+    background-color: white;
+    border-radius: 5px;
+    width: 100px;
+    margin: 5px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 3px; }
+  .player-container .player-area {
+    display: flex;
+    justify-content: center;
+    max-height: 220px; }
+    .player-container .player-area .bank-wrap {
+      width: 115px; }
+    .player-container .player-area .player-bank {
+      display: flex;
+      flex-direction: column; }
+    .player-container .player-area .player-left {
+      width: 115px; }
+    .player-container .player-area .player-right {
+      width: 115px; }
 
 .player-hand {
   display: flex;
   justify-content: center;
-  max-height: 200px;
-}
-.player-hand .card {
-  margin: 2px 5px;
-}
+  max-height: 200px; }
+  .player-hand .card {
+    margin: 2px 5px; }
 
 .market {
   max-height: 200px;
-  display: flex;
-}
+  display: flex; }
 
 .foo-card {
   width: 100px;
   height: 180px;
   border-radius: 10px;
-  border: 1px solid black;
-}
-.foo-card[data-color="0"] {
-  background-color: blue;
-}
-.foo-card[data-color="1"] {
-  background-color: green;
-}
-.foo-card[data-color="2"] {
-  background-color: pink;
-}
-.foo-card[data-color="3"] {
-  background-color: yellow;
-}
-.foo-card[data-color="4"] {
-  background-color: gray;
-}
-.foo-card::before {
-  content: attr(data-value);
-  display: inline-block;
-  background: black;
-  border-radius: 10px;
-  width: 20px;
-  height: 20px;
-  color: white;
-  text-align: center;
-  margin-top: 5px;
-  margin-left: 5px;
-}
+  border: 1px solid black; }
+  .foo-card[data-color='0'] {
+    background-color: blue; }
+  .foo-card[data-color='1'] {
+    background-color: green; }
+  .foo-card[data-color='2'] {
+    background-color: pink; }
+  .foo-card[data-color='3'] {
+    background-color: yellow; }
+  .foo-card[data-color='4'] {
+    background-color: gray; }
+  .foo-card::before {
+    content: attr(data-value);
+    display: inline-block;
+    background: black;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 5px; }
 
 .selected-card {
-  border: 1px solid blue;
-}
+  border: 1px solid blue; }
 
 .placeholder {
   width: 100px;
   height: 150px;
-  background-color: black;
-}
+  background-color: black; }
 
 .card {
   background-image: url(img/cards.jpg);
   background-repeat: no-repeat;
   display: block;
   transform: scale(0.5);
-  transform-origin: 0 0;
-}
+  transform-origin: 0 0; }
 
 .card_bank {
   width: 230px;
   height: 351px;
-  background-position: 0 0;
-}
+  background-position: 0 0; }
 
 .card_bank_duel {
   width: 230px;
   height: 351px;
-  background-position: -230px 0;
-}
+  background-position: -230px 0; }
 
 .card_bard {
   width: 231px;
   height: 351px;
-  background-position: -460px 0;
-}
+  background-position: -460px 0; }
 
 .card_beekeeper {
   width: 226px;
   height: 346px;
-  background-position: -691px 0;
-}
+  background-position: -691px 0; }
 
 .card_berserker {
   width: 231px;
   height: 351px;
-  background-position: -917px 0;
-}
+  background-position: -917px 0; }
 
 .card_blacksmith {
   width: 226px;
   height: 346px;
-  background-position: -1148px 0;
-}
+  background-position: -1148px 0; }
 
 .card_brawler {
   width: 226px;
   height: 346px;
-  background-position: -1374px 0;
-}
+  background-position: -1374px 0; }
 
 .card_brewer {
   width: 226px;
   height: 346px;
-  background-position: -1600px 0;
-}
+  background-position: -1600px 0; }
 
 .card_burglar {
   width: 231px;
   height: 351px;
-  background-position: -1148px -346px;
-}
+  background-position: -1148px -346px; }
 
 .card_cannoneer {
   width: 226px;
   height: 346px;
-  background-position: -1826px 0;
-}
+  background-position: -1826px 0; }
 
 .card_caravaner {
   width: 226px;
   height: 346px;
-  background-position: -691px -346px;
-}
+  background-position: -691px -346px; }
 
 .card_cathedral {
   width: 231px;
   height: 351px;
-  background-position: -1379px -346px;
-}
+  background-position: -1379px -346px; }
 
 .card_cutpurse {
   width: 231px;
   height: 351px;
-  background-position: -1610px -346px;
-}
+  background-position: -1610px -346px; }
 
 .card_dam {
   width: 226px;
   height: 346px;
-  background-position: 0 -697px;
-}
+  background-position: 0 -697px; }
 
 .card_diver {
   width: 226px;
   height: 346px;
-  background-position: -226px -697px;
-}
+  background-position: -226px -697px; }
 
 .card_doctor {
   width: 231px;
   height: 351px;
-  background-position: -452px -697px;
-}
+  background-position: -452px -697px; }
 
 .card_dungeon {
   width: 231px;
   height: 351px;
-  background-position: -683px -697px;
-}
+  background-position: -683px -697px; }
 
 .card_farmer {
   width: 230px;
   height: 352px;
-  background-position: -914px -697px;
-}
+  background-position: -914px -697px; }
 
 .card_fisher {
   width: 226px;
   height: 346px;
-  background-position: -1144px -697px;
-}
+  background-position: -1144px -697px; }
 
 .card_florist {
   width: 231px;
   height: 351px;
-  background-position: -1370px -697px;
-}
+  background-position: -1370px -697px; }
 
 .card_glassblower {
   width: 226px;
   height: 346px;
-  background-position: -1601px -697px;
-}
+  background-position: -1601px -697px; }
 
 .card_hermit {
   width: 226px;
   height: 346px;
-  background-position: -1827px -697px;
-}
+  background-position: -1827px -697px; }
 
 .card_hideout {
   width: 226px;
   height: 346px;
-  background-position: 0 -1043px;
-}
+  background-position: 0 -1043px; }
 
 .card_innkeeper {
   width: 231px;
   height: 351px;
-  background-position: -1601px -1043px;
-}
+  background-position: -1601px -1043px; }
 
 .card_kenel {
   width: 226px;
   height: 346px;
-  background-position: -226px -1043px;
-}
+  background-position: -226px -1043px; }
 
 .card_labyrinth {
   width: 231px;
   height: 351px;
-  background-position: 0 -1394px;
-}
+  background-position: 0 -1394px; }
 
 .card_lighthouse {
   width: 226px;
   height: 346px;
-  background-position: -1144px -1043px;
-}
+  background-position: -1144px -1043px; }
 
 .card_mason {
   width: 231px;
   height: 351px;
-  background-position: -231px -1394px;
-}
+  background-position: -231px -1394px; }
 
 .card_matador {
   width: 226px;
   height: 346px;
-  background-position: -462px -1394px;
-}
+  background-position: -462px -1394px; }
 
 .card_merchant {
   width: 231px;
   height: 352px;
-  background-position: -688px -1394px;
-}
+  background-position: -688px -1394px; }
 
 .card_miner {
   width: 231px;
   height: 351px;
-  background-position: -919px -1394px;
-}
+  background-position: -919px -1394px; }
 
 .card_moat {
   width: 231px;
   height: 351px;
-  background-position: -1150px -1394px;
-}
+  background-position: -1150px -1394px; }
 
 .card_navigator {
   width: 226px;
   height: 346px;
-  background-position: -1381px -1394px;
-}
+  background-position: -1381px -1394px; }
 
 .card_outlaw {
   width: 231px;
   height: 351px;
-  background-position: -1607px -1394px;
-}
+  background-position: -1607px -1394px; }
 
 .card_pickler {
   width: 231px;
   height: 351px;
-  background-position: -2052px 0;
-}
+  background-position: -2052px 0; }
 
 .card_pied_piper {
   width: 226px;
   height: 346px;
-  background-position: 0 -351px;
-}
+  background-position: 0 -351px; }
 
 .card_pirate_queen {
   width: 226px;
   height: 346px;
-  background-position: -226px -351px;
-}
+  background-position: -226px -351px; }
 
 .card_poacher {
   width: 226px;
   height: 346px;
-  background-position: -452px -351px;
-}
+  background-position: -452px -351px; }
 
 .card_powderkeg {
   width: 226px;
   height: 346px;
-  background-position: -917px -351px;
-}
+  background-position: -917px -351px; }
 
 .card_privateer {
   width: 226px;
   height: 346px;
-  background-position: -1841px -351px;
-}
+  background-position: -1841px -351px; }
 
 .card_raider {
   width: 230px;
   height: 352px;
-  background-position: -2053px -697px;
-}
+  background-position: -2053px -697px; }
 
 .card_rat_catcher {
   width: 231px;
   height: 351px;
-  background-position: -1838px -1049px;
-}
+  background-position: -1838px -1049px; }
 
 .card_ravenmaster {
   width: 226px;
   height: 346px;
-  background-position: -1838px -1400px;
-}
+  background-position: -1838px -1400px; }
 
 .card_reef {
   width: 226px;
   height: 346px;
-  background-position: 0 -1746px;
-}
+  background-position: 0 -1746px; }
 
 .card_rustler {
   width: 226px;
   height: 346px;
-  background-position: -226px -1746px;
-}
+  background-position: -226px -1746px; }
 
 .card_swamp {
   width: 226px;
   height: 346px;
-  background-position: -452px -1746px;
-}
+  background-position: -452px -1746px; }
 
 .card_toll_bridge {
   width: 231px;
   height: 351px;
-  background-position: -678px -1746px;
-}
+  background-position: -678px -1746px; }
 
 .card_trapper {
   width: 231px;
   height: 351px;
-  background-position: -909px -1746px;
-}
+  background-position: -909px -1746px; }
 
 .card_treasury {
   width: 231px;
   height: 351px;
-  background-position: -1140px -1746px;
-}
+  background-position: -1140px -1746px; }
 
 .card_veteran {
   width: 231px;
   height: 351px;
-  background-position: -1371px -1746px;
-}
+  background-position: -1371px -1746px; }
 
 .card_viking {
   width: 226px;
   height: 346px;
-  background-position: -1602px -1746px;
-}
+  background-position: -1602px -1746px; }
 
 .card_wall {
   width: 230px;
   height: 352px;
-  background-position: -1828px -1746px;
-}
+  background-position: -1828px -1746px; }
 
 .card_wild_goose {
   width: 226px;
   height: 346px;
-  background-position: -2058px -1746px;
-}
+  background-position: -2058px -1746px; }
 
 /*# sourceMappingURL=villagepillage.css.map */

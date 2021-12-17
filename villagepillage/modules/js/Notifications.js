@@ -21,6 +21,30 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.slide(card_id, target);
     },
 
+    notif_buyCard(args){
+      const card_id = `card_${args.args.card.id}`;
+      const player_id = args.args.player_id;
+      const target = `player-hand-${player_id}`;
+      if(player_id == this.player_id){
+        this.slide(card_id, target);
+      } else {
+        this.fadeOutAndDestroy(card_id);
+      }
+    },
+
+    notif_gainCard(args){
+      const card_id = `card_${args.args.card.id}`;
+      this.fadeOutAndDestroy(card_id);
+    },
+
+    notif_gainMyCard(args){
+      const card_id = `card_${args.args.card.id}`;
+      const player_id = args.args.player_id;
+      const target = `player-hand-${player_id}`;
+      this.place('tplCard', card, target);
+      dojo.connect(card_id, 'onclick', this, 'onCardClick');
+    },
+
     notif_reveal(args){
       dojo.query('.placeholder').forEach(dojo.destroy);
       for(const card_id in args.args.cards){
@@ -39,8 +63,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const player_right = dojo.query(`#player-right-${player_id} .card`)[0].id;
       this.slide(player_left, player_hand);
       this.slide(player_right, player_hand);
+      // TODO: slide my exhausted cards back to hand and destroy opponents
       for(const card_id in args.args.exhausted){
-        const card = args.args.cards[card_id];
+        const card = args.args.exhausted[card_id];
         this.slide(`card_${card_id}`, `player-exhausted-${card.pId}`);
       }
       dojo.query('.player-left .other-player-card').forEach(dojo.destroy);

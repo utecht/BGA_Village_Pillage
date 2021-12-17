@@ -9,6 +9,7 @@ class Globals extends \VP\Helpers\DB_Manager {
 	protected static $variables = [
 		"merchants" => "obj",
 		"buyer" => "int",
+		"buyPrice" => "int",
 	];
 
 	protected static $table = 'global_variables';

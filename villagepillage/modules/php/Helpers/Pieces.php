@@ -379,7 +379,7 @@ class Pieces extends DB_Manager {
 		   * Return pieces infos or void array if no card in the specified location
 	*/
 	public static function pickForLocation($nbr, $fromLocation, $toLocation, $state = 0, $deckReform = true) {
-		self::checkLocation($fromLocation, true);
+		self::checkLocation($fromLocation);
 		self::checkLocation($toLocation);
 		$pieces = self::getTopOf($fromLocation, $nbr, false);
 		$ids = $pieces->getIds();

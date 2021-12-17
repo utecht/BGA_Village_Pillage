@@ -3,6 +3,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     onCardClick(evt){
       dojo.stopEvent(evt);
       const cardId = evt.currentTarget.dataset.id;
+      if(this.buying){
+        this.takeAction('actBuyCard', {card_id: cardId});
+        return;
+      }
       if(this.selectedCardId === cardId){
         this.selectedCardId = null;
       } else {

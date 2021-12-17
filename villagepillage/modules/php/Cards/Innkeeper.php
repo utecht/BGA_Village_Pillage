@@ -4,6 +4,9 @@ use VP\Models\Card;
 use VP\Notifications\Gain;
 
 class Innkeeper extends Card {
+
+	public $buyPrice = 0;
+
 	public function gain(&$player, $opposing_card, &$opposing_player) {
 		$to_gain = 4;
 		if ($opposing_card->color == CARD_YELLOW) {
@@ -14,7 +17,6 @@ class Innkeeper extends Card {
 	}
 
 	public function buy(&$player, $opposing_card, &$opposing_player) {
-		// TODO: buy for 0
-
+		return true;
 	}
 }

@@ -2,9 +2,12 @@
 namespace VP\Managers;
 
 use VP\Core\Game;
+use VP\Core\Globals;
 use VP\Helpers\UserException;
 use VP\Managers\Players;
+use VP\Notifications\BuyCard;
 use VP\Notifications\PlayCard;
+use VP\Notifications\Poor;
 
 /**
  * Cards: id, value, color
@@ -44,9 +47,28 @@ class Cards extends \VP\Helpers\Pieces {
 		$card->setSide($side);
 		$card->setLocation('play');
 		PlayCard::playCard($player, $card);
-		if (self::countInLocation(['hand', '%']) == (Players::count() * 2)) {
+		if (self::countInLocation(['play', '%']) == (Players::count() * 2)) {
 			Game::get()->gamestate->nextState("done");
 		}
+	}
+
+	public static function buy($pId, $cardId) {
+		$card = self::get($cardId);
+		$player = Players::get($pId);
+		if ($card->location != 'market') {
+			throw new UserException("Attempt to buy card not in market");
+		}
+		$amount = Globals::getBuyPrice();
+		if ($amount > $player->getTurnips()) {
+			Poor::poor($player, $amount);
+			Game::get()->gamestate->nextState("done");
+			return;
+		}
+		$player->spendTurnips($amount);
+		self::move($cardId, ['hand', $pId]);
+		Cards::pickOneForLocation(['deck'], ['market']);
+		BuyCard::buyCard($player, $card, $amount);
+		Game::get()->gamestate->nextState("done");
 	}
 
 	//////////////////////////////////
@@ -59,7 +81,7 @@ class Cards extends \VP\Helpers\Pieces {
 	 * getOfPlayer: return the cards in the hand of given player
 	 */
 	public static function getOfPlayer($pId) {
-		return self::getInLocation(['hand', $pId]);
+		return self::getInLocation(['%', $pId]);
 	}
 
 	public static function getPlayerLeft($pId) {

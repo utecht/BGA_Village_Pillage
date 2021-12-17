@@ -6,6 +6,8 @@ use VP\Notifications\Steal;
 
 class Cathedral extends Card {
 
+	public $buyPrice = 1;
+
 	public function steal(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_RED) {
 			$opposing_player->steal($player, 3);
@@ -21,6 +23,6 @@ class Cathedral extends Card {
 	}
 
 	public function buy(&$player, $opposing_card, &$opposing_player) {
-		// TODO: buy card for 1
+		return true;
 	}
 }

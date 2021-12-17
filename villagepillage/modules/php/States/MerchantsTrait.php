@@ -62,6 +62,7 @@ trait MerchantsTrait {
 		$buy = $merchant->buy($player, $opposing_card, $opposing_player);
 		if ($buy === true) {
 			Globals::setBuyer($merchant->id);
+			Globals::setBuyPrice($merchant->buyPrice);
 			Game::get()->gamestate->changeActivePlayer($merchant->pId);
 			Game::get()->gamestate->nextState("buy");
 			return;

@@ -13,13 +13,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.forEachPlayer((player) => {
         if(player.cards.length > 0){
           this.place('tplPlayerHand', player, 'main-container');
-          player.cards.forEach((card) => {
-            this.place('tplCard', card, 'player-hand-' + player.id);
-          });
         }
 
         this.place('tplPlayerArea', player, 'main-container');
         this.place('tplBank', player, `player-bank-area-${player.id}`);
+        
+        player.cards.forEach((card) => {
+          this.place('tplCard', card, `player-${card.location}-${player.id}`);
+        });
 
         if(player.left){
           if(player.left == '1'){
@@ -47,13 +48,22 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       dojo.query(`#player-right-${this.player_id}`).connect('onclick', this, 'onZoneClick');
     },
 
-    setupMarket(){
+    setupMarket(market){
       this.place('tplMarket', null, 'main-container');
-      for(const card_id in this.gamedatas.market){
-        const card = this.gamedatas.market[card_id];
+      for(const card_id in market){
+        const card = market[card_id];
         this.place('tplCard', card, `market`);
       }
+      dojo.query('#market .card').connect('onclick', this, 'onCardClick');
+    },
 
+    refreshMarket(market){
+      dojo.query('#market .card').forEach(dojo.destroy);
+      for(const card_id in market){
+        const card = market[card_id];
+        this.place('tplCard', card, `market`);
+      }
+      dojo.query('#market .card').connect('onclick', this, 'onCardClick');
     },
 
     refreshBank(player){
