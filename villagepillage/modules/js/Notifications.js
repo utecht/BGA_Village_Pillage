@@ -2,7 +2,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   return declare('villagepillage.notifications', null, {
     notif_playCard(args){
       const player_id = args.args.player_id;
-      const side = args.args.card_location;
+      const side = args.args.card_side;
       const target = `player-${side}-${player_id}`;
       if(player_id != this.player_id){
         dojo.destroy(`placeholder-${side}-${player_id}`);
@@ -13,7 +13,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_playMyCard(args){
       const card_id = `card_${args.args.card.id}`;
       const player_id = args.args.player_id;
-      const side = args.args.card_location;
+      const side = args.args.card_side;
       const target = `player-${side}-${player_id}`;
       for(const old_hand of dojo.query(`#${target} .card`)){
         this.slide(old_hand.id, `player-hand-${player_id}`);
@@ -26,7 +26,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       for(const card_id in args.args.cards){
         const card = args.args.cards[card_id];
         if(card.pId != this.player_id){
-          const target = `player-${card.location}-${card.pId}`;
+          const target = `player-${card.side}-${card.pId}`;
           this.place('tplOtherCard', card, target);
         }
       }

@@ -7,6 +7,7 @@ namespace VP\Core;
 class Globals extends \VP\Helpers\DB_Manager {
 	protected static $initialized = false;
 	protected static $variables = [
+		"merchants" => "obj",
 
 	];
 

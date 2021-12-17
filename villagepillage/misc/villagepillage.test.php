@@ -23,5 +23,6 @@ class VillagePillageTest extends VillagePillage {
 
 $t = new VillagePillageTest();
 
-$location = ['hand', '%'];
+$location = ['play', 3857229, '%'];
 echo \VP\Helpers\Pieces::checkLocation($location, true);
+\VP\Managers\Cards::moveAllInLocation(['play', 1234, '%'], ['hand', 1234]);

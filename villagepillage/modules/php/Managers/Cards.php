@@ -29,6 +29,7 @@ class Cards extends \VP\Helpers\Pieces {
 			'name' => $card['name'],
 			'color' => $card['color'],
 			'pId' => $locations[1] ?? null,
+			'side' => $locations[2] ?? null,
 		]);
 	}
 
@@ -38,9 +39,10 @@ class Cards extends \VP\Helpers\Pieces {
 		if ($card->getPId() != $pId) {
 			throw new UserException("Attempt to play card you do not own");
 		}
-		self::moveAllInLocation([$side, $pId], ['hand', $pId]);
-		self::move($cardId, [$side, $pId]);
-		$card->setLocation($side);
+		self::moveAllInLocation(['play', $pId, $side], ['hand', $pId]);
+		self::move($cardId, ['play', $pId, $side]);
+		$card->setSide($side);
+		$card->setLocation('play');
 		PlayCard::playCard($player, $card);
 		if (self::countInLocation(['hand', '%']) == (Players::count() * 2)) {
 			Game::get()->gamestate->nextState("done");
@@ -61,21 +63,19 @@ class Cards extends \VP\Helpers\Pieces {
 	}
 
 	public static function getPlayerLeft($pId) {
-		return self::getTopOf(['left', $pId]);
+		return self::getTopOf(['play', $pId, 'left']);
 	}
 
 	public static function getPlayerRight($pId) {
-		return self::getTopOf(['right', $pId]);
+		return self::getTopOf(['play', $pId, 'right']);
 	}
 
 	public static function refreshHands($players) {
 		foreach ($players as $player) {
 			$pId = $player->getId();
 			self::moveAllInLocation(['exhausted', $pId], ['hand', $pId]);
-			self::moveAllInLocation(['left', $pId], ['exhausted', $pId], CARD_EXHAUSTED);
-			self::moveAllInLocation(['right', $pId], ['exhausted', $pId], CARD_EXHAUSTED);
-			self::moveAllInLocation(['left', $pId], ['hand', $pId]);
-			self::moveAllInLocation(['right', $pId], ['hand', $pId]);
+			self::moveAllInLocation(['play', $pId, '%'], ['exhausted', $pId], CARD_EXHAUSTED);
+			self::moveAllInLocation(['play', $pId, '%'], ['hand', $pId]);
 		}
 	}
 

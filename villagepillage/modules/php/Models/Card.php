@@ -11,6 +11,7 @@ abstract class Card {
 		'name' => 'name',
 		'color' => 'color',
 		'pId' => 'pId',
+		'side' => 'side',
 	];
 
 	public function __construct($row) {

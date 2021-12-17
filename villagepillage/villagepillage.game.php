@@ -44,6 +44,7 @@ class villagepillage extends Table {
 	use VP\States\WallsTrait;
 	use VP\States\RaidersTrait;
 	use VP\States\MerchantsTrait;
+	use VP\States\RefreshTrait;
 
 	public static $instance = null;
 	function __construct() {

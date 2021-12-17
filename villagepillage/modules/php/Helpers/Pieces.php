@@ -356,7 +356,7 @@ class Pieces extends DB_Manager {
 	*/
 	public static function moveAllInLocation($fromLocation, $toLocation, $fromState = null, $toState = 0) {
 		if (!is_null($fromLocation)) {
-			self::checkLocation($fromLocation);
+			self::checkLocation($fromLocation, true);
 		}
 		self::checkLocation($toLocation);
 
@@ -369,7 +369,7 @@ class Pieces extends DB_Manager {
 	 * Move all pieces from a location to another location arg stays with the same value
 	 */
 	public static function moveAllInLocationKeepState($fromLocation, $toLocation) {
-		self::checkLocation($fromLocation);
+		self::checkLocation($fromLocation, true);
 		self::checkLocation($toLocation);
 		return self::moveAllInLocation($fromLocation, $toLocation, null, null);
 	}
@@ -379,7 +379,7 @@ class Pieces extends DB_Manager {
 		   * Return pieces infos or void array if no card in the specified location
 	*/
 	public static function pickForLocation($nbr, $fromLocation, $toLocation, $state = 0, $deckReform = true) {
-		self::checkLocation($fromLocation);
+		self::checkLocation($fromLocation, true);
 		self::checkLocation($toLocation);
 		$pieces = self::getTopOf($fromLocation, $nbr, false);
 		$ids = $pieces->getIds();

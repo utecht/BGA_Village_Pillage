@@ -41,7 +41,7 @@ class Notifications {
 		if (isset($args['card'])) {
 			$args['card'] = $args['card']->jsonSerialize();
 			$args['card_name'] = $args['card']['name'];
-			$args['card_location'] = $args['card']['location'];
+			$args['card_side'] = $args['card']['side'];
 		}
 
 		// if (isset($args['task'])) {

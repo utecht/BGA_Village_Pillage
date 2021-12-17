@@ -62,7 +62,7 @@ $machinestates = [
 		'description' => clienttranslate('Activating merchants'),
 		'type' => 'manager',
 		'action' => 'stMerchants',
-		'transitions' => ['done' => ST_RUN_MERCHANT, 'multi' => ST_MERCHANT_PICK],
+		'transitions' => ['done' => ST_RUN_MERCHANT, 'multi' => ST_MERCHANT_PICK, 'none' => ST_REFRESH],
 	],
 
 	ST_RUN_MERCHANT => [
@@ -70,7 +70,7 @@ $machinestates = [
 		'description' => clienttranslate('Running merchant'),
 		'type' => 'manager',
 		'action' => 'stRunMerchant',
-		'transitions' => ['buy' => ST_BUY, 'more' => ST_RUN_MERCHANT, 'done' => ST_CARD_PLAY],
+		'transitions' => ['buy' => ST_BUY, 'next' => ST_RUN_MERCHANT, 'done' => ST_REFRESH],
 	],
 
 	ST_BUY => [
@@ -91,6 +91,14 @@ $machinestates = [
 		'args' => 'argMulti',
 		'possibleactions' => ['actPickFirst'],
 		'transitions' => ['done' => ST_RUN_MERCHANT],
+	],
+
+	ST_REFRESH => [
+		'name' => 'refresh',
+		'description' => clienttranslate('Refresh'),
+		'type' => 'manager',
+		'action' => 'stRefresh',
+		'transitions' => ['next' => ST_CARD_PLAY, 'end' => ST_END_GAME],
 	],
 
 	// Final state.

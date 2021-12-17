@@ -12,6 +12,7 @@ const ST_MERCHANTS = 6;
 const ST_MERCHANT_PICK = 7;
 const ST_BUY = 8;
 const ST_RUN_MERCHANT = 9;
+const ST_REFRESH = 10;
 
 const ST_END_GAME = 99;
 
