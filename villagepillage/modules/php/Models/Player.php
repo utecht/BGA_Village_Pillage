@@ -35,7 +35,7 @@ class Player extends \VP\Helpers\DB_Model {
 		$data = parent::jsonSerialize();
 		$current = $this->id == $currentPlayerId;
 		$data = array_merge($data, [
-			'cards' => $current ? $this->getCards()->toArray() : [],
+			'cards' => $current ? $this->getCards()->toArray() : $this->getExhausted()->toArray(),
 		]);
 		$data = array_merge($data, $this->getToken()->jsonSerialize());
 		$left = Cards::getPlayerLeft($this->id);
@@ -60,6 +60,10 @@ class Player extends \VP\Helpers\DB_Model {
 
 	public function getCards() {
 		return Cards::getOfPlayer($this->id);
+	}
+
+	public function getExhausted() {
+		return Cards::getOfPlayerExhausted($this->id);
 	}
 
 	public function getToken() {

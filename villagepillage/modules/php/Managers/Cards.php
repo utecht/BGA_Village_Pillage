@@ -84,6 +84,10 @@ class Cards extends \VP\Helpers\Pieces {
 		return self::getInLocation(['%', $pId]);
 	}
 
+	public static function getOfPlayerExhausted($pId) {
+		return self::getInLocation(['exhausted', $pId]);
+	}
+
 	public static function getPlayerLeft($pId) {
 		return self::getTopOf(['play', $pId, 'left']);
 	}

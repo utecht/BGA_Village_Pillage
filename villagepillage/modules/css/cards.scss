@@ -35,12 +35,24 @@
 }
 
 .selected-card {
-  border: 1px solid blue;
+  border: 2px solid blue;
 }
 
 
 .placeholder {
-  width: 100px;
-  height: 150px;
+  width: 115px;
+  height: 176px;
+  margin: 2px 5px;
   background-color: black;
+}
+
+.card-wrapper{
+  max-width: 115px;
+  max-height: 176px;
+  margin: 2px 5px;
+}
+
+.bank-wrap{
+  max-width: 115px;
+  max-height: 176px;
 }

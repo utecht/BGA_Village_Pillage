@@ -1,16 +1,18 @@
 .player-container {
-  height: 250px;
   margin: 10px 5px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   border-width: 1px;
   border-style: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .player-name {
     background-color: white;
     border-radius: 5px;
     width: 100px;
-    margin: 5px;
+    margin: 2px;
     text-align: center;
     border: 1px solid black;
     padding: 3px;
@@ -19,11 +21,6 @@
   .player-area {
     display: flex;
     justify-content: center;
-    max-height: 220px;
-
-    .bank-wrap {
-      width: 115px;
-    }
 
     .player-bank {
       display: flex;
@@ -31,26 +28,41 @@
     }
 
     .player-left {
-      width: 115px;
+      width: 140px;
     }
 
     .player-right {
-      width: 115px;
+      width: 140px;
     }
+  }
+}
+
+.player-exhausted {
+
+  .card-wrapper {
+    transform: rotate(90deg) translateY(-140px);
+    transform-origin: 0 0;
+    height: 115px;
   }
 }
 
 .player-hand {
   display: flex;
-  justify-content: center;
-  max-height: 200px;
-
-  .card {
-    margin: 2px 5px;
-  }
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .market {
-  max-height: 200px;
   display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+#your-row {
+  display: flex;
+}
+
+#remaining-opponents {
+  display: flex;
+  flex-wrap: wrap;
 }

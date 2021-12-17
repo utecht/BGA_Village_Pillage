@@ -14,44 +14,54 @@
  *
  */
 .player-container {
-  height: 250px;
   margin: 10px 5px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   border-width: 1px;
-  border-style: solid; }
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
   .player-container .player-name {
     background-color: white;
     border-radius: 5px;
     width: 100px;
-    margin: 5px;
+    margin: 2px;
     text-align: center;
     border: 1px solid black;
     padding: 3px; }
   .player-container .player-area {
     display: flex;
-    justify-content: center;
-    max-height: 220px; }
-    .player-container .player-area .bank-wrap {
-      width: 115px; }
+    justify-content: center; }
     .player-container .player-area .player-bank {
       display: flex;
       flex-direction: column; }
     .player-container .player-area .player-left {
-      width: 115px; }
+      width: 140px; }
     .player-container .player-area .player-right {
-      width: 115px; }
+      width: 140px; }
+
+.player-exhausted .card-wrapper {
+  transform: rotate(90deg) translateY(-140px);
+  transform-origin: 0 0;
+  height: 115px; }
 
 .player-hand {
   display: flex;
-  justify-content: center;
-  max-height: 200px; }
-  .player-hand .card {
-    margin: 2px 5px; }
+  justify-content: space-evenly;
+  flex-wrap: wrap; }
 
 .market {
-  max-height: 200px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap; }
+
+#your-row {
   display: flex; }
+
+#remaining-opponents {
+  display: flex;
+  flex-wrap: wrap; }
 
 .foo-card {
   width: 100px;
@@ -81,12 +91,22 @@
     margin-left: 5px; }
 
 .selected-card {
-  border: 1px solid blue; }
+  border: 2px solid blue; }
 
 .placeholder {
-  width: 100px;
-  height: 150px;
+  width: 115px;
+  height: 176px;
+  margin: 2px 5px;
   background-color: black; }
+
+.card-wrapper {
+  max-width: 115px;
+  max-height: 176px;
+  margin: 2px 5px; }
+
+.bank-wrap {
+  max-width: 115px;
+  max-height: 176px; }
 
 .card {
   background-image: url(img/cards.jpg);

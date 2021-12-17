@@ -2,7 +2,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   return declare('villagepillage.actions', null, {
     onCardClick(evt){
       dojo.stopEvent(evt);
-      const cardId = evt.currentTarget.dataset.id;
+      const cardId = evt.currentTarget.id.split('_')[1];
       if(this.buying){
         this.takeAction('actBuyCard', {card_id: cardId});
         return;
