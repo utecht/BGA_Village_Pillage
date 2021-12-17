@@ -28,7 +28,7 @@ class Cards extends \VP\Helpers\Pieces {
 			'location' => $locations[0],
 			'name' => $card['name'],
 			'color' => $card['color'],
-			'pId' => $locations[1] ?? null,
+			'pId' => intVal($locations[1]) ?? null,
 			'side' => $locations[2] ?? null,
 		]);
 	}

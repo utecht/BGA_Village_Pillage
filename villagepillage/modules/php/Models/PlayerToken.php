@@ -11,7 +11,7 @@ class PlayerToken extends \VP\Helpers\DB_Model {
 		'pId' => 'player_id',
 		'supply' => 'supply',
 		'bank' => 'bank',
-		'relic' => 'relic_state',
+		'relic' => 'relic',
 	];
 
 	public function getId() {
