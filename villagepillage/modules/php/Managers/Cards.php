@@ -28,7 +28,7 @@ class Cards extends \VP\Helpers\Pieces {
 			'location' => $locations[0],
 			'name' => $card['name'],
 			'color' => $card['color'],
-			'pId' => intVal($locations[1]) ?? null,
+			'pId' => count($locations) > 1 ? intVal($locations[1]) : null,
 			'side' => $locations[2] ?? null,
 		]);
 	}
@@ -98,5 +98,8 @@ class Cards extends \VP\Helpers\Pieces {
 			$cards[] = ['name' => 'merchant', 'color' => CARD_YELLOW];
 			self::create($cards, ['hand', $pId]);
 		}
+		self::create(Game::get()->base_cards, ['deck']);
+		self::shuffle(['deck']);
+		self::pickForLocation(4, ['deck'], ['market']);
 	}
 }

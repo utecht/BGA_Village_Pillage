@@ -47,9 +47,24 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       dojo.query(`#player-right-${this.player_id}`).connect('onclick', this, 'onZoneClick');
     },
 
+    setupMarket(){
+      this.place('tplMarket', null, 'main-container');
+      for(const card_id in this.gamedatas.market){
+        const card = this.gamedatas.market[card_id];
+        this.place('tplCard', card, `market`);
+      }
+
+    },
+
     refreshBank(player){
       dojo.destroy(`player-bank-${player.id}`);
       this.place('tplBank', player, `player-bank-area-${player.id}`);
+    },
+
+    tplMarket(){
+      return `
+        <div class="market" id="market"></div>
+      `;
     },
 
     tplPlayerArea(player) {

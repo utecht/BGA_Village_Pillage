@@ -65,6 +65,7 @@ define([
      */
     setup(gamedatas) {
       debug('SETUP', gamedatas);
+      this.setupMarket();
       this.setupPlayers();
       this.inherited(arguments);
     },

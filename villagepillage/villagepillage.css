@@ -58,6 +58,11 @@
   margin: 2px 5px;
 }
 
+.market {
+  max-height: 200px;
+  display: flex;
+}
+
 .foo-card {
   width: 100px;
   height: 180px;

@@ -84,6 +84,7 @@ class villagepillage extends Table {
 		return [
 			'prefs' => Preferences::getUiData($pId),
 			'players' => Players::getUiData($pId),
+			'market' => Cards::getInLocation(['market']),
 		];
 	}
 

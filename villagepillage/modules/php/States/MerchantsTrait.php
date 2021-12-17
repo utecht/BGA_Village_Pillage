@@ -73,6 +73,7 @@ trait MerchantsTrait {
 		$merchant_id = Globals::getBuyer();
 		return [
 			'merchant' => Cards::get($merchant_id),
+			'market' => Cards::getInLocation(['market']),
 		];
 	}
 }
