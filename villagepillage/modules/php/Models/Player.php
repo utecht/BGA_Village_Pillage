@@ -1,5 +1,6 @@
 <?php
 namespace VP\Models;
+use VP\Core\Game;
 use VP\Core\Preferences;
 use VP\Managers\Cards;
 use VP\Managers\PlayerTokens;
@@ -40,10 +41,12 @@ class Player extends \VP\Helpers\DB_Model {
 		$data = array_merge($data, $this->getToken()->jsonSerialize());
 		$left = Cards::getPlayerLeft($this->id);
 		$left_count = $left ? 1 : 0;
-		$data = array_merge($data, ['left' => $current ? $left : $left_count]);
+		$revealed = Game::getStateName() != 'playerTurn';
+		$revealed = $current ? true : $revealed;
+		$data = array_merge($data, ['left' => $revealed ? $left : $left_count]);
 		$right = Cards::getPlayerRight($this->id);
 		$right_count = $right ? 1 : 0;
-		$data = array_merge($data, ['right' => $current ? $right : $right_count]);
+		$data = array_merge($data, ['right' => $revealed ? $right : $right_count]);
 
 		return $data;
 	}

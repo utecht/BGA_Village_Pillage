@@ -59,8 +59,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_refresh(args){
       const player_id = this.player_id;
       const player_hand = `player-hand-${player_id}`;
-      const player_left = dojo.query(`#player-left-${player_id} .card`)[0].id;
-      const player_right = dojo.query(`#player-right-${player_id} .card`)[0].id;
+      const player_left = dojo.query(`#player-left-${player_id} .card-wrapper`)[0].id;
+      const player_right = dojo.query(`#player-right-${player_id} .card-wrapper`)[0].id;
       this.slide(player_left, player_hand);
       this.slide(player_right, player_hand);
       // TODO: slide my exhausted cards back to hand and destroy opponents

@@ -28,11 +28,11 @@
     }
 
     .player-left {
-      width: 140px;
+      width: 115px;
     }
 
     .player-right {
-      width: 140px;
+      width: 115px;
     }
   }
 }
@@ -60,9 +60,12 @@
 
 #your-row {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #remaining-opponents {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }

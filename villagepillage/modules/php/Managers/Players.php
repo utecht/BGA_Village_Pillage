@@ -29,7 +29,7 @@ class Players extends \VP\Helpers\DB_Manager {
 		$values = [];
 		foreach ($players as $pId => $player) {
 			$color = array_shift($colors);
-			$values[] = [$pId, $color, $player['player_canal'], $player['player_name'], $player['player_avatar'], 1];
+			$values[] = [$pId, $color, $player['player_canal'], $player['player_name'], $player['player_avatar'], 0];
 		}
 		$query->values($values);
 

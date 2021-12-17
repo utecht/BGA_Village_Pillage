@@ -37,9 +37,9 @@
       display: flex;
       flex-direction: column; }
     .player-container .player-area .player-left {
-      width: 140px; }
+      width: 115px; }
     .player-container .player-area .player-right {
-      width: 140px; }
+      width: 115px; }
 
 .player-exhausted .card-wrapper {
   transform: rotate(90deg) translateY(-140px);
@@ -57,11 +57,14 @@
   flex-wrap: wrap; }
 
 #your-row {
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
 
 #remaining-opponents {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  justify-content: center; }
 
 .foo-card {
   width: 100px;
@@ -96,13 +99,11 @@
 .placeholder {
   width: 115px;
   height: 176px;
-  margin: 2px 5px;
   background-color: black; }
 
 .card-wrapper {
   max-width: 115px;
-  max-height: 176px;
-  margin: 2px 5px; }
+  max-height: 176px; }
 
 .bank-wrap {
   max-width: 115px;

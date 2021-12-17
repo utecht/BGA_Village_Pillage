@@ -12,6 +12,10 @@ class Game {
 		return villagepillage::get();
 	}
 
+	public static function getStateName() {
+		return villagepillage::get()->gamestate->state()['name'];
+	}
+
 	public static function doActions($phase, &$players) {
 		Game::processTurn($phase, 'gain', $players);
 		foreach ($players as $player) {

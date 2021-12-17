@@ -66,6 +66,8 @@ trait MerchantsTrait {
 			Game::get()->gamestate->changeActivePlayer($merchant->pId);
 			Game::get()->gamestate->nextState("buy");
 			return;
+		} else {
+			$player->incScore();
 		}
 		Game::get()->gamestate->nextState("next");
 	}

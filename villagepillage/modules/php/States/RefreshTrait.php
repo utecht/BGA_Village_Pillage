@@ -9,8 +9,19 @@ use VP\Notifications\Refresh;
 
 trait RefreshTrait {
 	function stRefresh() {
-		Notifications::message("Refresh");
+		// check for game end
 		$players = Players::getAll();
+		$game_ending = false;
+		foreach ($players as $player) {
+			if ($player->getToken()->relic == RELIC_THREE) {
+				$game_ending = true;
+			}
+		}
+		if ($game_ending) {
+			Game::get()->gamestate->nextState("end");
+			return;
+		}
+		Notifications::message("Refresh");
 		Cards::refreshHands($players);
 		Refresh::refresh();
 		Game::get()->gamestate->nextState("next");
