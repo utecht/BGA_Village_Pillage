@@ -3,12 +3,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     onEnteringStatePlayerTurn(args){
       debug(args);
       this.buying = false;
-      this.refreshMarket(args.market);
+      this.refreshThings(args.players, args.market);
     },
 
     onEnteringStateBuy(args){
       this.buying = true;
-      this.refreshMarket(args.market);
+      this.refreshThings(args.players, args.market);
+    },
+
+    refreshThings(players, market){
+      this.refreshMarket(market);
+      for(let player in players){
+        this.refreshBank(players[player]);
+      }
     },
   });
 });

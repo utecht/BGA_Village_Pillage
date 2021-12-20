@@ -33,8 +33,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_gainCard(args){
-      const card_id = `card_${args.args.card.id}`;
-      this.fadeOutAndDestroy(card_id);
+      // slide a card off the deck to player
     },
 
     notif_gainMyCard(args){
@@ -68,8 +67,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         const card = args.args.exhausted[card_id];
         this.slide(`card_${card_id}`, `player-exhausted-${card.pId}`);
       }
-      dojo.query('.player-left .other-player-card').forEach(dojo.destroy);
-      dojo.query('.player-right .other-player-card').forEach(dojo.destroy);
+      dojo.query('.player-left .card-wrapper').forEach(dojo.destroy);
+      dojo.query('.player-right .card-wrapper').forEach(dojo.destroy);
     },
 
     notif_gain(args){
@@ -90,6 +89,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_buyRelic(args){
       const player = args.args.player;
       this.refreshBank(player);
+      this.scoreCtrl[player.id].incValue(1);
     },
 
   });

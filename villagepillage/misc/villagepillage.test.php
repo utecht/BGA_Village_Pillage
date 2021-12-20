@@ -22,7 +22,8 @@ class VillagePillageTest extends VillagePillage {
 }
 
 $t = new VillagePillageTest();
+var_dump($t->getAllDatas());
 
-$location = ['play', 3857229, '%'];
-echo \VP\Helpers\Pieces::checkLocation($location, true);
-\VP\Managers\Cards::moveAllInLocation(['play', 1234, '%'], ['hand', 1234]);
+// $location = ['play', 3857229, '%'];
+// echo \VP\Helpers\Pieces::checkLocation($location, true);
+// \VP\Managers\Cards::moveAllInLocation(['play', 1234, '%'], ['hand', 1234]);

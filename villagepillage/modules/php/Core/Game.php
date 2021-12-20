@@ -18,18 +18,18 @@ class Game {
 
 	public static function doActions($phase, &$players) {
 		Game::processTurn($phase, 'gain', $players);
-		foreach ($players as $player) {
+		foreach ($players as &$player) {
 			$player->updateIncome();
 		}
 		Game::processTurn($phase, 'steal', $players);
-		foreach ($players as $player) {
+		foreach ($players as &$player) {
 			$player->payThieves();
 		}
-		foreach ($players as $player) {
+		foreach ($players as &$player) {
 			$player->updateIncome();
 		}
 		Game::processTurn($phase, 'bank', $players);
-		foreach ($players as $player) {
+		foreach ($players as &$player) {
 			$player->updateBank();
 		}
 		Game::processTurn($phase, 'buy', $players);
@@ -46,14 +46,14 @@ class Game {
 			$left_card = Cards::getPlayerLeft($player->id);
 			if ($left_card->color == $phase) {
 				$left_index = Utils::amod(($i - 1), $num_players);
-				$left_player = $players[$player_numbers[$left_index]];
+				$left_player = &$players[$player_numbers[$left_index]];
 				$opposing_left_card = Cards::getPlayerRight($left_player->id);
 				$left_card->$turn_type($player, $opposing_left_card, $left_player);
 			}
 			$right_card = Cards::getPlayerRight($player->id);
 			if ($right_card->color == $phase) {
 				$right_index = Utils::amod(($i + 1), $num_players);
-				$right_player = $players[$player_numbers[$right_index]];
+				$right_player = &$players[$player_numbers[$right_index]];
 				$opposing_right_card = Cards::getPlayerLeft($right_player->id);
 				$right_card->$turn_type($player, $opposing_right_card, $right_player);
 			}

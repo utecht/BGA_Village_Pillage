@@ -37,6 +37,7 @@ trait MerchantsTrait {
 		}
 		Notifications::message("Running merchant " . $merchant_id);
 		$merchant = Cards::get($merchant_id);
+		$owner = Players::get($merchant->pId);
 		$opposing_player = Players::getNextId($merchant->pId);
 		$opposing_card = Cards::getPlayerLeft($merchant->pId);
 		if ($merchant->side == 'left') {
@@ -44,22 +45,22 @@ trait MerchantsTrait {
 			$opposing_card = Cards::getPlayerRight($merchant->pId);
 		}
 		$players = Players::getAll();
-		$merchant->gain($player, $opposing_card, $opposing_player);
-		foreach ($players as $player) {
+		$merchant->gain($owner, $opposing_card, $opposing_player);
+		foreach ($players as &$player) {
 			$player->updateIncome();
 		}
-		$merchant->steal($player, $opposing_card, $opposing_player);
-		foreach ($players as $player) {
+		$merchant->steal($owner, $opposing_card, $opposing_player);
+		foreach ($players as &$player) {
 			$player->payThieves();
 		}
-		foreach ($players as $player) {
+		foreach ($players as &$player) {
 			$player->updateIncome();
 		}
-		$merchant->bank($player, $opposing_card, $opposing_player);
-		foreach ($players as $player) {
+		$merchant->bank($owner, $opposing_card, $opposing_player);
+		foreach ($players as &$player) {
 			$player->updateBank();
 		}
-		$buy = $merchant->buy($player, $opposing_card, $opposing_player);
+		$buy = $merchant->buy($owner, $opposing_card, $opposing_player);
 		if ($buy === true) {
 			Globals::setBuyer($merchant->id);
 			Globals::setBuyPrice($merchant->buyPrice);
@@ -67,16 +68,18 @@ trait MerchantsTrait {
 			Game::get()->gamestate->nextState("buy");
 			return;
 		} else {
-			$player->incScore();
+			$owner->incScore();
 		}
 		Game::get()->gamestate->nextState("next");
 	}
 
 	function argBuy() {
 		$merchant_id = Globals::getBuyer();
+		$pId = Game::get()->getCurrentPId();
 		return [
 			'merchant' => Cards::get($merchant_id),
 			'market' => Cards::getInLocation(['market']),
+			'players' => Players::getUiData($pId),
 		];
 	}
 }

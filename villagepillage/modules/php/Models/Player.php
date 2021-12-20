@@ -4,6 +4,7 @@ use VP\Core\Game;
 use VP\Core\Preferences;
 use VP\Managers\Cards;
 use VP\Managers\PlayerTokens;
+use VP\Notifications\Steal;
 
 /*
  * Player: all utility functions concerning a player
@@ -144,11 +145,14 @@ class Player extends \VP\Helpers\DB_Model {
 		return false;
 	}
 
-	public function steal(&$stealing_player, $amount) {
-		$this->stolen[] = ['player' => $stealing_player, 'amount' => $amount];
+	public function steal(&$stealing_player, $amount, $card) {
+		$this->stolen[] = ['player' => $stealing_player, 'amount' => $amount, 'card' => $card];
 	}
 
 	public function payThieves() {
+		if (count($this->stolen) === 0) {
+			return;
+		}
 		$total_stolen = 0;
 		$token = $this->getToken();
 		$remainder = 0;
@@ -169,30 +173,45 @@ class Player extends \VP\Helpers\DB_Model {
 			$token->incSupply($total_stolen * -1);
 			foreach ($this->stolen as $thief) {
 				$thief['player']->income($thief['amount']);
+				Steal::steal($thief['player'], $thief['card'], $thief['amount'], $this);
 			}
+			$this->stolen = [];
+			return;
 		}
 		if ($remainder === 1) {
-			if ($this->stolen[0] > $this->stolen[1]) {
+			if (count($this->stolen) == 1) {
 				$this->stolen[0]['player']->income($stolen_amount + $remainder);
+				Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount + $remainder, $this);
+			} elseif ($this->stolen[0] > $this->stolen[1]) {
+				$this->stolen[0]['player']->income($stolen_amount + $remainder);
+				Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount + $remainder, $this);
 				$this->stolen[1]['player']->income($stolen_amount);
 			} elseif ($this->stolen[1] > $this->stolen[0]) {
 				$this->stolen[1]['player']->income($stolen_amount + $remainder);
+				Steal::steal($this->stolen[1]['player'], $this->stolen[1]['card'], $stolen_amount + $remainder, $this);
 				$this->stolen[0]['player']->income($stolen_amount);
+				Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount, $this);
 			} else {
 				if (bga_rand(0, 1) == 1) {
 					$this->stolen[1]['player']->income($stolen_amount + $remainder);
+					Steal::steal($this->stolen[1]['player'], $this->stolen[1]['card'], $stolen_amount + $remainder, $this);
 					$this->stolen[0]['player']->income($stolen_amount);
+					Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount, $this);
 				} else {
 					$this->stolen[0]['player']->income($stolen_amount + $remainder);
+					Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount + $remainder, $this);
 					$this->stolen[1]['player']->income($stolen_amount);
+					Steal::steal($this->stolen[1]['player'], $this->stolen[1]['card'], $stolen_amount, $this);
 				}
 			}
 		} else {
 			foreach ($this->stolen as $thief) {
 				if ($thief['amount'] <= $stolen_amount) {
 					$thief['player']->income($stolen_amount);
+					Steal::steal($thief['player'], $thief['card'], $stolen_amount, $this);
 				} else {
 					$thief['player']->income($thief['amount']);
+					Steal::steal($thief['player'], $thief['card'], $thief['amount'], $this);
 				}
 			}
 		}

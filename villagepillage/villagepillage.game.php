@@ -91,6 +91,7 @@ class villagepillage extends Table {
 	function argPlayerTurn() {
 		return [
 			'market' => Cards::getInLocation(['market']),
+			'players' => Players::getUiData(null),
 		];
 	}
 
