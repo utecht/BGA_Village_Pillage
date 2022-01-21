@@ -1,0 +1,29 @@
+.token {
+    background-image: url(img/tokens.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.token-crown {
+    width: 197px;
+    height: 197px;
+    background-position: 0 0;
+}
+
+.token-scepter {
+    width: 197px;
+    height: 197px;
+    background-position: -197px 0;
+}
+
+.token-throne {
+    width: 197px;
+    height: 197px;
+    background-position: 0 -197px;
+}
+
+.token-turnip {
+    width: 175px;
+    height: 211px;
+    background-position: -394px 0;
+}
