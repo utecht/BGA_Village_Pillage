@@ -120,7 +120,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-area'>
             <div class='player-left' id="player-left-${player.id}"><span>Left Card</span></div>
             <div>
-              <div class="bank-wrap"><div class='player-bank card card_bank'></div></div>
+              <div class="bank-wrap"><div class='player-bank bank bank_card'></div></div>
               <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
             </div>
             <div id="player-bank-area-${player.id}"></div>
@@ -137,7 +137,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-area'>
             <div class='player-left' id="player-left-${player.id}"><span class="player-name">Play Left</span></div>
             <div>
-              <div class="bank-wrap"><div class='player-bank card card_bank'></div></div>
+              <div class="bank-wrap"><div class='player-bank bank bank_card'></div></div>
               <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
             </div>
             <div id="player-bank-area-${player.id}"></div>

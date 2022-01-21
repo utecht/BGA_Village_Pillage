@@ -51,6 +51,25 @@
 }
 
 .bank-wrap{
-  max-width: 115px;
-  max-height: 176px;
+  max-width: 135px;
+  max-height: 206px;
+}
+
+.bank {
+    background-repeat: no-repeat;
+    display: block;
+    transform: scale(.20);
+    transform-origin: 0 0;
+}
+
+.bank_card {
+    width: 675px;
+    height: 1030px;
+    background: url(img/banks.jpg) -675px -0;
+}
+
+.card_bank_duel {
+    width: 675px;
+    height: 1030px;
+    background: url(img/banks.jpg) -0 -0;
 }
