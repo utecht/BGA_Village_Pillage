@@ -24,6 +24,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.place('tplPlayerArea', player, target_area);
       }
       this.place('tplBank', player, `player-bank-area-${player.id}`);
+      for(let t = 1; t <= player.bank; t++){
+        this.place('tplTurnip', `${player.id}-bank-turnip_${t}`, `bank-turnip-${t}-${player.id}`);
+      }
       player.cards.forEach((card) => {
         this.place('tplCard', card, `player-${card.location}-${player.id}`);
       });
@@ -95,6 +98,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     refreshBank(player){
       dojo.destroy(`player-bank-${player.id}`);
       this.place('tplBank', player, `player-bank-area-${player.id}`);
+      for(let t = 1; t <= player.bank; t++){
+        this.place('tplTurnip', `${player.id}-bank-turnip_${t}`, `bank-turnip-${t}-${player.id}`);
+      }
     },
 
     tplAreas(){
@@ -120,10 +126,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-area'>
             <div class='player-left' id="player-left-${player.id}"><span>Left Card</span></div>
             <div>
-              <div class="bank-wrap"><div class='player-bank bank bank_card'></div></div>
+              <div id="player-bank-area-${player.id}"></div>
               <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
             </div>
-            <div id="player-bank-area-${player.id}"></div>
             <div class='player-right' id="player-right-${player.id}"><span>Right Card</span></div>
           </div>
         </div>
@@ -137,10 +142,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-area'>
             <div class='player-left' id="player-left-${player.id}"><span class="player-name">Play Left</span></div>
             <div>
-              <div class="bank-wrap"><div class='player-bank bank bank_card'></div></div>
+              <div id="player-bank-area-${player.id}"></div>
               <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
             </div>
-            <div id="player-bank-area-${player.id}"></div>
             <div class='player-right' id="player-right-${player.id}"><span class="player-name">Play Right</span></div>
           </div>
         </div>
@@ -149,11 +153,31 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplBank(player){
       return `
-        <div id="player-bank-${player.id}" class="player-bank">
-          <span>Relic = ${player.relic}</span>
-          <span>Bank = ${player.bank}</span>
-          <span>Supply = ${player.supply}</span>
+        <div id="player-bank-${player.id}">
+          <div class="bank-wrap">
+            <div id="player-bank-${player.id}" class='player-bank bank bank_card'>
+              <div id="scepter-target-${player.id}" class="scepter-target"></div>
+              <div id="crown-target-${player.id}" class="crown-target"></div>
+              <div id="throne-target-${player.id}" class="throne-target"></div>
+              <div id="bank-turnip-1-${player.id}" class="bank-turnip-1"></div>
+              <div id="bank-turnip-2-${player.id}" class="bank-turnip-2"></div>
+              <div id="bank-turnip-3-${player.id}" class="bank-turnip-3"></div>
+              <div id="bank-turnip-4-${player.id}" class="bank-turnip-4"></div>
+              <div id="bank-turnip-5-${player.id}" class="bank-turnip-5"></div>
+            </div>
+          </div>
+          <div class="player-bank">
+            <span>Relic = ${player.relic}</span>
+            <span>Bank = ${player.bank}</span>
+            <span>Supply = ${player.supply}</span>
+          </div>
         </div>
+      `;
+    },
+
+    tplTurnip(id){
+      return `
+        <div id="${id}" class="token token-turnip"></div>
       `;
     },
 
@@ -182,7 +206,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplPlaceHolder(args){
       return `
-        <div id="placeholder-${args.side}-${args.player_id}" class='placeholder'></div>
+        <div id="placeholder-${args.side}-${args.player_id}" class='card-wrapper'><div class='card card_back'></div></div>
       `;
     }
   });

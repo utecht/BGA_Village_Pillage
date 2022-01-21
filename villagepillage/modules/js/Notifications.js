@@ -45,12 +45,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_reveal(args){
-      dojo.query('.placeholder').forEach(dojo.destroy);
       for(const card_id in args.args.cards){
         const card = args.args.cards[card_id];
         if(card.pId != this.player_id){
-          const target = `player-${card.side}-${card.pId}`;
-          this.place('tplOtherCard', card, target);
+          const placeholder = `placeholder-${card.side}-${card.pId}`;
+          this.flipAndReplace(placeholder, this.tplOtherCard(card));
         }
       }
     },
