@@ -19,6 +19,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       dojo.stopEvent(evt);
       const side = evt.currentTarget.id.split('-')[1];
       const cardId = this.selectedCardId;
+      if(cardId == null){
+        return;
+      }
       this.takeAction('actPlayCard', {side: side, card_id: cardId});
       this.selectedCardId = null;
       dojo.query('.selected-card').removeClass('selected-card');

@@ -133,7 +133,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     tplMyPlayerArea(player) {
       return `
         <div class='player-container' style='border-color:#${player.color}'>
-          <div class='player-name' style='color:#${player.color}'>You</div>
+          <div id="player-name-${player.id}" class='player-name' style='color:#${player.color}'>You</div>
           <div class='player-area'>
             <div class='player-left' id="player-left-${player.id}"><span class="player-name">Play Left</span></div>
             <div>
