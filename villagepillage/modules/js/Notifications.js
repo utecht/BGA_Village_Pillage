@@ -15,7 +15,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const player_id = args.args.player_id;
       const side = args.args.card_side;
       const target = `player-${side}-${player_id}`;
-      for(const old_hand of dojo.query(`#${target} .card`)){
+      for(const old_hand of dojo.query(`#${target} .card-wrapper`)){
         this.slide(old_hand.id, `player-hand-${player_id}`);
       }
       this.slide(card_id, target);
