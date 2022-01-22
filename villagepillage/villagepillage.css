@@ -35,6 +35,12 @@
 .player-container .player-area {
   display: flex;
   justify-content: center;
+  position: relative;
+}
+.player-container .player-area .slide-target {
+  position: absolute;
+  top: 80px;
+  left: 40px;
 }
 .player-container .player-area .player-supply-wrap {
   max-height: 45px;
@@ -508,6 +514,19 @@
   width: 482px;
   height: 719px;
   background: url(img/vp_cards.jpg) -2892px -2157px;
+}
+
+.turnip-wrapper {
+  max-height: 45px;
+  max-width: 65px;
+}
+.turnip-wrapper .token {
+  transform: scale(0.2);
+  transform-origin: 0 0;
+  font-size: 8em;
+  text-align: center;
+  padding-top: 30px;
+  color: white;
 }
 
 .token {

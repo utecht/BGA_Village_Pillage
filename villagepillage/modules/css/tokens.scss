@@ -1,3 +1,17 @@
+.turnip-wrapper {
+  max-height: 45px;
+  max-width: 65px;
+
+    .token {
+        transform: scale(0.2);
+        transform-origin: 0 0;
+        font-size: 8em;
+        text-align: center;
+        padding-top: 30px;
+        color: white;
+    }
+}
+
 .token {
     background-image: url(img/tokens.png);
     background-repeat: no-repeat;
