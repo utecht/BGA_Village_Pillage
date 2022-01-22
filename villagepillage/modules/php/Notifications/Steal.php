@@ -9,7 +9,7 @@ class Steal extends \VP\Core\Notifications {
 			"amount" => $amount,
 			"card" => $card,
 			"player_name2" => $target->name,
-			"target_id" => $target->getId(),
+			"target" => $target,
 		]);
 	}
 }

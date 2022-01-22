@@ -76,31 +76,37 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const amount = args.args.amount;
       this.place('tplTurnipSmall', args.args, `player-${card.side}-${player.id}-slide`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      this.wait(800);
       player.supply = parseInt(player.supply) + parseInt(amount);
-      this.refreshBank(player);
+      this.wait(800).then(resolve => {
+        this.refreshBank(player);
+      });
     },
 
     notif_steal(args){
       const player = args.args.player;
+      const target = args.args.target;
       const amount = args.args.amount;
       const card = args.args.card;
-      this.place('tplTurnipSmall', args.args, `turnip-supply-${args.args.target_id}`);
+      this.place('tplTurnipSmall', args.args, `turnip-supply-${target.id}`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      this.wait(800);
       player.supply = parseInt(player.supply) + parseInt(amount);
-      this.refreshBank(player);
+      this.refreshBank(target);
+      this.wait(800).then(resolve => {
+        this.refreshBank(player);
+      });
     },
 
     notif_bank(args){
       const player = args.args.player;
       const amount = args.args.amount;
       const card = args.args.card;
-      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}`);
-      this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${player.bank}-${player.id}`, {destroy: true});
-      this.wait(800);
       player.bank = parseInt(player.bank) + parseInt(amount);
-      this.refreshBank(player);
+      player.supply = parseInt(player.supply) - parseInt(amount);
+      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}`);
+      this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${player.bank}-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
+      this.wait(800).then(resolve => {
+        this.refreshBank(player);
+      });
     },
 
     notif_buyRelic(args){

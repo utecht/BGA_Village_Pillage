@@ -58,9 +58,11 @@
   color: white;
 }
 .player-container .player-area .player-left {
+  position: relative;
   width: 121px;
 }
 .player-container .player-area .player-right {
+  position: relative;
   width: 121px;
 }
 
@@ -518,7 +520,7 @@
 
 .turnip-wrapper {
   max-height: 45px;
-  max-width: 65px;
+  max-width: 35px;
 }
 .turnip-wrapper .token {
   transform: scale(0.2);
