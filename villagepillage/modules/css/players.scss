@@ -22,9 +22,22 @@
     display: flex;
     justify-content: center;
 
-    .player-bank {
-      display: flex;
-      flex-direction: column;
+    .player-supply-wrap {
+      max-height: 45px;
+      max-width: 65px;
+      padding-left: 50px;
+    }
+
+    .player-supply {
+      transform: scale(0.2);
+      transform-origin: 0 0;
+
+      h1 {
+        font-size: 8em;
+        text-align: center;
+        padding-top: 30px;
+        color: white;
+      }
     }
 
     .player-left {

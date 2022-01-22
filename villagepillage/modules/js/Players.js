@@ -27,6 +27,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       for(let t = 1; t <= player.bank; t++){
         this.place('tplTurnip', `${player.id}-bank-turnip_${t}`, `bank-turnip-${t}-${player.id}`);
       }
+      if(player.relic >= 1){
+        this.place('tplScepter', player, `scepter-target-${player.id}`);
+      }
+      if(player.relic >= 2){
+        this.place('tplCrown', player, `crown-target-${player.id}`);
+      }
+      if(player.relic >= 3){
+        this.place('tplThrone', player, `throne-target-${player.id}`);
+      }
       player.cards.forEach((card) => {
         this.place('tplCard', card, `player-${card.location}-${player.id}`);
       });
@@ -101,6 +110,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       for(let t = 1; t <= player.bank; t++){
         this.place('tplTurnip', `${player.id}-bank-turnip_${t}`, `bank-turnip-${t}-${player.id}`);
       }
+      if(player.relic >= 1){
+        this.place('tplScepter', player, `scepter-target-${player.id}`);
+      }
+      if(player.relic >= 2){
+        this.place('tplCrown', player, `crown-target-${player.id}`);
+      }
+      if(player.relic >= 3){
+        this.place('tplThrone', player, `throne-target-${player.id}`);
+      }
     },
 
     tplAreas(){
@@ -152,6 +170,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplBank(player){
+      let supply = this.tplTurnipSupply(player);
       return `
         <div id="player-bank-${player.id}">
           <div class="bank-wrap">
@@ -166,11 +185,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               <div id="bank-turnip-5-${player.id}" class="bank-turnip-5"></div>
             </div>
           </div>
-          <div class="player-bank">
-            <span>Relic = ${player.relic}</span>
-            <span>Bank = ${player.bank}</span>
-            <span>Supply = ${player.supply}</span>
-          </div>
+          <div class="player-supply-wrap"><div class="player-supply">${supply}</div></div>
         </div>
       `;
     },
@@ -178,6 +193,30 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     tplTurnip(id){
       return `
         <div id="${id}" class="token token-turnip"></div>
+      `;
+    },
+
+    tplTurnipSupply(player){
+      return `
+        <div id="turnip-supply-${player.id}" class="token token-turnip"><h1>${player.supply}</h1></div>
+      `;
+    },
+
+    tplScepter(player){
+      return `
+        <div id="scepter-${player.id}" class="token token-scepter"></div>
+      `;
+    },
+
+    tplCrown(player){
+      return `
+        <div id="crown-${player.id}" class="token token-crown"></div>
+      `;
+    },
+
+    tplThrone(player){
+      return `
+        <div id="throne-${player.id}" class="token token-throne"></div>
       `;
     },
 
