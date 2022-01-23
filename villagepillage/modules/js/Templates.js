@@ -95,9 +95,17 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		  `;
 		},
 
+		tplVictorySmall(args){
+		  return `
+		    <div id="t_${args.type}_${args.player.id}" class="turnip-wrapper">
+			    <div class="token token-${args.type}"></div>
+		    </div>
+		  `;
+		},
+
 		tplTurnipSupply(player){
 		  return `
-		    <div id="turnip-supply-${player.id}" class="token token-turnip"><h1>${player.supply}</h1></div>
+		    <div id="turnip-supply-${player.id}" class="token token-turnip">${player.supply}</div>
 		  `;
 		},
 

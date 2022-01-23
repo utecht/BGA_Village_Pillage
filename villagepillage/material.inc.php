@@ -30,7 +30,7 @@ $this->base_cards = array(
 	['name' => 'miner', 'color' => CARD_GREEN],
 	['name' => 'labyrinth', 'color' => CARD_BLUE],
 	['name' => 'cathedral', 'color' => CARD_BLUE],
-	['name' => 'troll_bridge', 'color' => CARD_BLUE],
+	['name' => 'toll_bridge', 'color' => CARD_BLUE],
 	['name' => 'moat', 'color' => CARD_BLUE],
 	['name' => 'treasury', 'color' => CARD_BLUE],
 	['name' => 'dungeon', 'color' => CARD_BLUE],

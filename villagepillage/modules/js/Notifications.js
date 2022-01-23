@@ -76,7 +76,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const amount = args.args.amount;
       this.place('tplTurnipSmall', args.args, `player-${card.side}-${player.id}-slide`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      player.supply = parseInt(player.supply) + parseInt(amount);
+      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
       this.wait(800).then(resolve => {
         this.refreshBank(player);
       });
@@ -89,7 +89,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card = args.args.card;
       this.place('tplTurnipSmall', args.args, `turnip-supply-${target.id}`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      player.supply = parseInt(player.supply) + parseInt(amount);
+      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
       this.refreshBank(target);
       this.wait(800).then(resolve => {
         this.refreshBank(player);
@@ -101,7 +101,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const amount = args.args.amount;
       const card = args.args.card;
       player.bank = parseInt(player.bank) + parseInt(amount);
-      player.supply = parseInt(player.supply) - parseInt(amount);
+      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) - parseInt(amount);
       this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}`);
       this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${player.bank}-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
       this.wait(800).then(resolve => {
@@ -111,8 +111,25 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_buyRelic(args){
       const player = args.args.player;
-      this.refreshBank(player);
-      this.scoreCtrl[player.id].incValue(1);
+      const card = args.args.card;
+      const amount = args.args.amount;
+      let type = 'scepter';
+      if(player.relic == 2){
+        type = 'crown';
+      }
+      if(player.relic == 3){
+        type = 'throne';
+      }
+      args.args['type'] = type;
+      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) - parseInt(amount);
+      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}`);
+      this.slide(`t_${card.id}_${player.id}`, `player-${card.side}-${player.id}-slide`, {destroy: true});
+      this.place('tplVictorySmall', args.args, `player-${card.side}-${player.id}-slide`)
+      this.slide(`t_${type}_${player.id}`, `${type}-target-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
+      this.wait(800).then(resolve => {
+        this.refreshBank(player);
+        this.scoreCtrl[player.id].incValue(1);
+      });
     },
 
   });

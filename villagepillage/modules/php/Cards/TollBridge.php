@@ -3,7 +3,7 @@ namespace VP\Cards;
 use VP\Models\Card;
 use VP\Notifications\Bank;
 
-class TrollBridge extends Card {
+class TollBridge extends Card {
 
 	public function steal(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_YELLOW || $opposing_card->color == CARD_RED) {

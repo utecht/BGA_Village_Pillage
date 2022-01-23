@@ -51,7 +51,7 @@
   transform: scale(0.2);
   transform-origin: 0 0;
 }
-.player-container .player-area .player-supply h1 {
+.player-container .player-area .player-supply .token {
   font-size: 8em;
   text-align: center;
   padding-top: 30px;

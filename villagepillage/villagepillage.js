@@ -53,7 +53,7 @@ define([
         ['gainCard', 500],
         ['gainMyCard', 500],
         ['poor', 500],
-        ['buyRelic', 500],
+        ['buyRelic', 1500],
         ['reveal', 1000],
       ];
 
