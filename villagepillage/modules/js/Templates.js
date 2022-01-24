@@ -140,19 +140,29 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
 		tplCard(card) {
 		  return `
-		    <div id="card_${card.id}" class='card-wrapper'><div class='card card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div></div>
+		    <div id="card_${card.id}" class='card-wrapper'>
+		    	<div class='card-border'>
+				    <div class='card card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div>
+			    </div>
+		    </div>
 		  `;
 		},
 
 		tplOtherCard(card){
 		  return `
-		    <div id="card_${card.id}" class='card-wrapper other-player-card'><div class='card card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div></div>
+		    <div id="card_${card.id}" class='card-wrapper other-player-card'>
+		    	<div class='card-border'>
+				    <div class='card card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div>
+			    </div>
+		    </div>
 		  `;
 		},
 
 		tplPlaceHolder(args){
 		  return `
-		    <div id="placeholder-${args.side}-${args.player_id}" class='card-wrapper'><div class='card card_back'></div></div>
+		    <div id="placeholder-${args.side}-${args.player_id}" class='card-wrapper'>
+			    <div class='card card_back'></div>
+		    </div>
 		  `;
 		},
 	});

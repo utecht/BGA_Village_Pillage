@@ -53,6 +53,7 @@
     .player-container .player-area .player-left, .player-container .player-area .player-right {
       position: relative;
       min-width: 145px;
+      max-height: 220px;
       display: flex;
       flex-direction: column;
       align-items: center; }
@@ -77,7 +78,8 @@
 #your-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; }
+  justify-content: center;
+  align-items: flex-start; }
 
 #remaining-opponents {
   display: flex;
@@ -112,21 +114,21 @@
     margin-left: 5px; }
 
 .selected-card {
-  border: 2px solid blue; }
-
-.placeholder {
-  width: 121px;
-  height: 180px;
-  background-color: black; }
+  border: 3px solid blue; }
 
 .card-wrapper {
-  max-width: 121px;
-  max-height: 180px;
+  max-width: 133px;
+  max-height: 192px;
+  margin: 10px;
+  border-radius: 3px; }
+
+.card-border {
   background-color: black;
   padding: 4px;
   border-radius: 3px;
-  margin: 3px;
-  box-shadow: 2px 3px 3px black; }
+  max-width: 121px;
+  max-height: 180px;
+  width: 100%; }
 
 .bank-wrap {
   max-width: 135px;
@@ -267,9 +269,9 @@
   background-position: -1144px -697px; }
 
 .card_florist {
-  width: 231px;
-  height: 351px;
-  background-position: -1370px -697px; }
+  width: 482px;
+  height: 719px;
+  background: url(img/vp_cards.jpg) -2892px 0; }
 
 .card_glassblower {
   width: 226px;

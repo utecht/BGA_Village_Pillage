@@ -35,24 +35,23 @@
 }
 
 .selected-card {
-  border: 2px solid blue;
-}
-
-
-.placeholder {
-  width: 121px;
-  height: 180px;
-  background-color: black;
+  border: 3px solid blue;
 }
 
 .card-wrapper{
-  max-width: 121px;
-  max-height: 180px;
+  max-width: 133px;
+  max-height: 192px;
+  margin: 10px;
+  border-radius: 3px;
+}
+
+.card-border {
   background-color: black;
   padding: 4px;
   border-radius: 3px;
-  margin: 3px;
-  box-shadow: 2px 3px 3px black;
+  max-width: 121px;
+  max-height: 180px;
+  width: 100%;
 }
 
 .bank-wrap{
