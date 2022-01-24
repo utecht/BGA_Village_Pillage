@@ -42,6 +42,9 @@ class Cards extends \VP\Helpers\Pieces {
 		if ($card->getPId() != $pId) {
 			throw new UserException("Attempt to play card you do not own");
 		}
+		if ($card->location == 'exhausted') {
+			throw new UserException("You cannot play exhausted cards");
+		}
 		self::moveAllInLocation(['play', $pId, $side], ['hand', $pId]);
 		self::move($cardId, ['play', $pId, $side]);
 		$card->setSide($side);

@@ -16,8 +16,7 @@ class Labyrinth extends Card {
 
 	public function steal(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_RED) {
-			$opposing_player->steal($player, 3);
-			Steal::steal($player, $this, 3, $opposing_player);
+			$opposing_player->steal($player, 3, $this);
 			Cards::setState($opposing_card->id, CARD_EXHAUSTED);
 		}
 	}
