@@ -7,7 +7,6 @@ class TollBridge extends Card {
 
 	public function steal(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_YELLOW || $opposing_card->color == CARD_RED) {
-			// TODO: implement super steal
 			$opposing_player->steal($player, 2, $this);
 		}
 	}
@@ -17,5 +16,9 @@ class TollBridge extends Card {
 			$player->bank(2);
 			Bank::bank($player, $this, 2);
 		}
+	}
+
+	public function bankSteal() {
+		return true;
 	}
 }

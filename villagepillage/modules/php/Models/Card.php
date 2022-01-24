@@ -73,4 +73,8 @@ abstract class Card {
 	public function buy(&$player, $opposing_card, &$opposing_player) {
 		return false;
 	}
+
+	public function bankSteal() {
+		return false;
+	}
 }

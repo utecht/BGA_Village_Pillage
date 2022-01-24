@@ -96,6 +96,20 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
+    notif_stealBank(args){
+      const player = args.args.player;
+      const target = args.args.target;
+      const amount = args.args.amount;
+      const card = args.args.card;
+      this.place('tplTurnipSmall', args.args, `bank-turnip-${parseInt(target.bank) + 1}-${target.id}`);
+      this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
+      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
+      this.refreshBank(target);
+      this.wait(800).then(resolve => {
+        this.refreshBank(player);
+      });
+    },
+
     notif_bank(args){
       const player = args.args.player;
       const amount = args.args.amount;

@@ -180,41 +180,110 @@ class Player extends \VP\Helpers\DB_Model {
 		}
 		if ($remainder === 1) {
 			if (count($this->stolen) == 1) {
-				$this->stolen[0]['player']->income($stolen_amount + $remainder);
-				Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount + $remainder, $this);
-			} elseif ($this->stolen[0] > $this->stolen[1]) {
-				$this->stolen[0]['player']->income($stolen_amount + $remainder);
-				Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount + $remainder, $this);
-				$this->stolen[1]['player']->income($stolen_amount);
-			} elseif ($this->stolen[1] > $this->stolen[0]) {
-				$this->stolen[1]['player']->income($stolen_amount + $remainder);
-				Steal::steal($this->stolen[1]['player'], $this->stolen[1]['card'], $stolen_amount + $remainder, $this);
-				$this->stolen[0]['player']->income($stolen_amount);
-				Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount, $this);
+				$thief = &$this->stolen[0];
+				$thief['player']->income($stolen_amount + $remainder);
+				$thief['stole'] = $stolen_amount + $remainder;
+				Steal::steal($thief['player'], $thief['card'], $stolen_amount + $remainder, $this);
 			} else {
-				if (bga_rand(0, 1) == 1) {
-					$this->stolen[1]['player']->income($stolen_amount + $remainder);
-					Steal::steal($this->stolen[1]['player'], $this->stolen[1]['card'], $stolen_amount + $remainder, $this);
-					$this->stolen[0]['player']->income($stolen_amount);
-					Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount, $this);
-				} else {
-					$this->stolen[0]['player']->income($stolen_amount + $remainder);
-					Steal::steal($this->stolen[0]['player'], $this->stolen[0]['card'], $stolen_amount + $remainder, $this);
-					$this->stolen[1]['player']->income($stolen_amount);
-					Steal::steal($this->stolen[1]['player'], $this->stolen[1]['card'], $stolen_amount, $this);
+				$thief0 = &$this->stolen[0];
+				$thief1 = &$this->stolen[1];
+				$greaterThief = &$thief0;
+				$lesserThief = &$thief1;
+				if ($thief1['amount'] > $thief0['amount']) {
+					$greaterThief = &$thief1;
+					$lesserThief = &$thief0;
+				} elseif ($thief0['amount'] == $thief1['amount']) {
+					if (bga_rand(0, 1) == 1) {
+						$greaterThief = &$thief1;
+						$lesserThief = &$thief0;
+					}
 				}
+				$greaterThief['player']->income($stolen_amount + $remainder);
+				$greaterThief['stole'] = $stolen_amount + $remainder;
+				Steal::steal($greaterThief['player'], $greaterThief['card'], $stolen_amount + $remainder, $this);
+				$lesserThief['player']->income($stolen_amount);
+				$lesserThief['stole'] = $stolen_amount;
+				Steal::steal($lesserThief['player'], $lesserThief['card'], $stolen_amount, $this);
+
 			}
 		} else {
-			foreach ($this->stolen as $thief) {
-				if ($thief['amount'] <= $stolen_amount) {
-					$thief['player']->income($stolen_amount);
-					Steal::steal($thief['player'], $thief['card'], $stolen_amount, $this);
-				} else {
-					$thief['player']->income($thief['amount']);
-					Steal::steal($thief['player'], $thief['card'], $thief['amount'], $this);
+			foreach ($this->stolen as &$thief) {
+				$thief['player']->income($stolen_amount);
+				$thief['stole'] = $stolen_amount;
+				Steal::steal($thief['player'], $thief['card'], $stolen_amount, $this);
+			}
+		}
+		$bankThieves = [];
+		foreach ($this->stolen as &$thief) {
+			if ($thief['stole'] < $thief['amount']) {
+				if ($thief['card']->bankSteal()) {
+					$thief['bankSteal'] = $thief['amount'] - $thief['stole'];
+					$bankThieves[] = $thief;
 				}
 			}
 		}
+
+		if (count($bankThieves) === 0) {
+			return;
+		}
+
+		$total_stolen = 0;
+		$remainder = 0;
+		foreach ($bankThieves as $thief) {
+			$total_stolen += $thief['bankSteal'];
+		}
+		$stolen_amount = 0;
+		if ($total_stolen > $token->bank) {
+			// on even steal, divide equally
+			if ($token->bank % 2 == 0) {
+				$stolen_amount = $token->bank / 2;
+			} else {
+				$stolen_amount = intval(floor($token->bank / 2));
+				$remainder = 1;
+			}
+			$token->setBank(0);
+		} else {
+			$token->incBank($total_stolen * -1);
+			foreach ($bankThieves as $thief) {
+				$thief['player']->income($thief['bankSteal']);
+				Steal::stealBank($thief['player'], $thief['card'], $thief['bankSteal'], $this);
+			}
+			$this->stolen = [];
+			return;
+		}
+
+		if ($remainder === 1) {
+			if (count($bankThieves) == 1) {
+				$thief = &$bankThieves[0];
+				$thief['player']->income($stolen_amount + $remainder);
+				$thief['stole'] = $stolen_amount + $remainder;
+				Steal::stealBank($thief['player'], $thief['card'], $stolen_amount + $remainder, $this);
+			} else {
+				$thief0 = &$bankThieves[0];
+				$thief1 = &$bankThieves[1];
+				$greaterThief = &$thief0;
+				$lesserThief = &$thief1;
+				if ($thief1['amount'] > $thief0['amount']) {
+					$greaterThief = &$thief1;
+					$lesserThief = &$thief0;
+				} elseif ($thief0['amount'] == $thief1['amount']) {
+					if (bga_rand(0, 1) == 1) {
+						$greaterThief = &$thief1;
+						$lesserThief = &$thief0;
+					}
+				}
+				$greaterThief['player']->income($stolen_amount + $remainder);
+				Steal::stealBank($greaterThief['player'], $greaterThief['card'], $stolen_amount + $remainder, $this);
+				$lesserThief['player']->income($stolen_amount);
+				Steal::stealBank($lesserThief['player'], $lesserThief['card'], $stolen_amount, $this);
+			}
+		} else {
+			foreach ($this->stolen as $thief) {
+				$thief['player']->income($stolen_amount);
+				Steal::stealBank($thief['player'], $thief['card'], $stolen_amount, $this);
+			}
+		}
+
 		$this->stolen = [];
 	}
 }

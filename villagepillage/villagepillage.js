@@ -48,6 +48,7 @@ define([
         ['refresh', 500],
         ['gain', 1500],
         ['steal', 1500],
+        ['stealBank', 1500],
         ['bank', 1500],
         ['buyCard', 500],
         ['gainCard', 500],
