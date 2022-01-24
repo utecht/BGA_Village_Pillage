@@ -2,6 +2,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   return declare('villagepillage.actions', null, {
     onCardClick(evt){
       dojo.stopEvent(evt);
+      // TODO: stop highlighting cards that are not valid plays
       const cardId = evt.currentTarget.id.split('_')[1];
       if(this.buying){
         this.takeAction('actBuyCard', {card_id: cardId});
