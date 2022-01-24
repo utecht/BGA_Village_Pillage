@@ -10,6 +10,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       if(this.selectedCardId === cardId){
         this.selectedCardId = null;
       } else {
+        dojo.query('.selected-card').removeClass('selected-card');
         this.selectedCardId = cardId;
       }
       dojo.toggleClass(evt.currentTarget.id, 'selected-card');
