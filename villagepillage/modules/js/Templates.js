@@ -27,7 +27,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		        </div>
 		        <div>
 		          <div id="player-bank-area-${player.id}"></div>
-		          <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
+		          <div class='player-exhausted other-exhausted' id="player-exhausted-${player.id}"></div>
 		        </div>
 		        <div class='player-right' id="player-right-${player.id}">
 			        <i class="fa fa-arrow-right"></i>

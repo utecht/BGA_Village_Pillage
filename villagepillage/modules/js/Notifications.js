@@ -65,7 +65,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const player_right = dojo.query(`#player-right-${player_id} .card-wrapper`)[0].id;
       this.slide(player_left, player_hand);
       this.slide(player_right, player_hand);
-      // TODO: slide my exhausted cards back to hand and destroy opponents
+      for(const card of dojo.query(`#player-exhausted-${player_id} .card-wrapper`)){
+        this.slide(card.id, player_hand);
+      }
+      dojo.query('.other-exhausted .card-wrapper').forEach(dojo.destroy);
       for(const card_id in args.args.exhausted){
         const card = args.args.exhausted[card_id];
         this.slide(`card_${card_id}`, `player-exhausted-${card.pId}`);
