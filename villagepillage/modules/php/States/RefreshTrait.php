@@ -24,6 +24,7 @@ trait RefreshTrait {
 		Notifications::message("Refresh");
 		Cards::refreshHands($players);
 		Refresh::refresh();
+		Game::get()->gamestate->setAllPlayersMultiactive();
 		Game::get()->gamestate->nextState("next");
 	}
 }
