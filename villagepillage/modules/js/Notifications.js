@@ -36,6 +36,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       // slide a card off the deck to player
     },
 
+    notif_poor(args){
+
+    },
+
     notif_gainMyCard(args){
       const card_id = `card_${args.args.card.id}`;
       const player_id = args.args.player_id;

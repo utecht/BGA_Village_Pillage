@@ -6,6 +6,7 @@ use VP\Core\Globals;
 use VP\Core\Notifications;
 use VP\Managers\Cards;
 use VP\Managers\Players;
+use VP\Notifications\Poor;
 
 trait MerchantsTrait {
 	function stMerchants() {
@@ -35,7 +36,6 @@ trait MerchantsTrait {
 			Game::get()->gamestate->nextState("done");
 			return;
 		}
-		Notifications::message("Running merchant " . $merchant_id);
 		$merchant = Cards::get($merchant_id);
 		$owner = Players::get($merchant->pId);
 		$opposing_player = Players::getNextId($merchant->pId);
@@ -62,6 +62,11 @@ trait MerchantsTrait {
 		}
 		$buy = $merchant->buy($owner, $opposing_card, $opposing_player);
 		if ($buy === true) {
+			if ($merchant->buyPrice > $owner->getTurnips()) {
+				Poor::poor($owner, $merchant->buyPrice);
+				Game::get()->gamestate->nextState("next");
+				return;
+			}
 			Globals::setBuyer($merchant->id);
 			Globals::setBuyPrice($merchant->buyPrice);
 			Game::get()->gamestate->changeActivePlayer($merchant->pId);
