@@ -18,11 +18,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
 		tplPlayerArea(player) {
 		  return `
-		    <div class='player-container' style='border-color:#${player.color}'>
+		    <div class='player-container' style='border-color:#${player.color};margin-top:3em'>
 		      <div class='player-name' style='color:#${player.color}'>${player.name}</div>
 		      <div class='player-area'>
 		        <div class='player-left' id="player-left-${player.id}">
-			        <span>Left Card</span>
+			        <i class="fa fa-arrow-left"></i>
 		        	<div id="player-left-${player.id}-slide" class="slide-target"></div>
 		        </div>
 		        <div>
@@ -30,7 +30,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		          <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
 		        </div>
 		        <div class='player-right' id="player-right-${player.id}">
-			        <span>Right Card</span>
+			        <i class="fa fa-arrow-right"></i>
 		        	<div id="player-right-${player.id}-slide" class="slide-target"></div>
 		        </div>
 		      </div>
@@ -40,11 +40,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
 		tplMyPlayerArea(player) {
 		  return `
-		    <div class='player-container' style='border-color:#${player.color}'>
+		    <div class='player-container' style='border-color:#${player.color};margin-bottom: 3em'>
 		      <div id="player-name-${player.id}" class='player-name' style='color:#${player.color}'>You</div>
 		      <div class='player-area'>
 		        <div class='player-left' id="player-left-${player.id}">
-			        <span class="player-name">Play Left</span>
+			        <span class="player-name"><i class="fa fa-arrow-left"></i></span>
 		        	<div id="player-left-${player.id}-slide" class="slide-target"></div>
 		        </div>
 		        <div>
@@ -52,7 +52,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		          <div class='player-exhausted' id="player-exhausted-${player.id}"></div>
 		        </div>
 		        <div class='player-right' id="player-right-${player.id}">
-			        <span class="player-name">Play Right</span>
+			        <span class="player-name"><i class="fa fa-arrow-right"></i></span>
 		        	<div id="player-right-${player.id}-slide" class="slide-target"></div>
 		        </div>
 		      </div>

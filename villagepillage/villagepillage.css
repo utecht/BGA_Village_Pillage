@@ -50,12 +50,12 @@
         text-align: center;
         padding-top: 30px;
         color: white; }
-    .player-container .player-area .player-left {
+    .player-container .player-area .player-left, .player-container .player-area .player-right {
       position: relative;
-      width: 121px; }
-    .player-container .player-area .player-right {
-      position: relative;
-      width: 121px; }
+      min-width: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
 
 .player-exhausted .card-wrapper {
   transform: rotate(90deg) translateY(-140px);
@@ -65,12 +65,14 @@
 .player-hand {
   display: flex;
   justify-content: space-evenly;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  width: 100%; }
 
 .market {
   display: flex;
   justify-content: space-evenly;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  width: 100%; }
 
 #your-row {
   display: flex;
@@ -119,11 +121,18 @@
 
 .card-wrapper {
   max-width: 121px;
-  max-height: 180px; }
+  max-height: 180px;
+  background-color: black;
+  padding: 4px;
+  border-radius: 3px;
+  margin: 3px;
+  box-shadow: 3px 3px 3px black; }
 
 .bank-wrap {
   max-width: 135px;
-  max-height: 206px; }
+  max-height: 206px;
+  margin: 5px;
+  box-shadow: 3px 3px 3px black; }
 
 .bank {
   background-repeat: no-repeat;

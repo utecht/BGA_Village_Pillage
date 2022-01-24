@@ -48,11 +48,18 @@
 .card-wrapper{
   max-width: 121px;
   max-height: 180px;
+  background-color: black;
+  padding: 4px;
+  border-radius: 3px;
+  margin: 3px;
+  box-shadow: 3px 3px 3px black;
 }
 
 .bank-wrap{
   max-width: 135px;
   max-height: 206px;
+  margin: 5px;
+  box-shadow: 3px 3px 3px black;
 }
 
 .bank {
