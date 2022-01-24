@@ -80,6 +80,10 @@ class Cards extends \VP\Helpers\Pieces {
 	/**
 	 * getOfPlayer: return the cards in the hand of given player
 	 */
+	public static function countInPlayOfPlayer($pId) {
+		return self::countInLocation(['play', $pId, '%']);
+	}
+
 	public static function getOfPlayer($pId) {
 		return self::getInLocation(['%', $pId]);
 	}

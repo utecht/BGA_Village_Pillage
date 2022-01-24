@@ -30,7 +30,7 @@ $machinestates = [
 		'descriptionmyturn' => clienttranslate('All players must play cards'),
 		'type' => 'multipleactiveplayer',
 		'args' => 'argPlayerTurn',
-		'possibleactions' => ['actPlayCard'],
+		'possibleactions' => ['actPlayCard', 'actEndTurn'],
 		'transitions' => ['done' => ST_FARMERS],
 	],
 

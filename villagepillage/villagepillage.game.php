@@ -34,6 +34,7 @@ require_once APP_GAMEMODULE_PATH . 'module/table/table.game.php';
 
 use VP\Core\Globals;
 use VP\Core\Preferences;
+use VP\Helpers\UserException;
 use VP\Managers\Cards;
 use VP\Managers\Players;
 use VP\Managers\PlayerTokens;
@@ -112,6 +113,15 @@ class villagepillage extends Table {
 
 	function actBuyCard($cardId) {
 		Cards::buy($this->getCurrentPId(), $cardId);
+	}
+
+	function actEndTurn() {
+		$pId = self::getCurrentPId();
+		if (Cards::countInPlayOfPlayer($pId) == 2) {
+			$this->gamestate->setPlayerNonMultiactive($this->getCurrentPlayerId(), 'done');
+		} else {
+			throw new UserException("Can only end turn after playing 2 cards");
+		}
 	}
 
 	/////////////////////////////////////////////////////////////

@@ -48,4 +48,10 @@ class action_villagepillage extends APP_GameAction {
 		$this->game->actBuyCard($cardId);
 		self::ajaxResponse();
 	}
+
+	public function actEndTurn() {
+		self::setAjaxMode();
+		$this->game->actEndTurn();
+		self::ajaxResponse();
+	}
 }

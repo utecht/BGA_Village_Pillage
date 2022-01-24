@@ -6,6 +6,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.refreshThings(args.players, args.market);
     },
 
+    onUpdateActivityPlayerTurn(args, status){
+      this.addPrimaryActionButton('end_turn', _('End Turn'), 'onEndClick');
+    },
+
     onEnteringStateBuy(args){
       this.buying = true;
       this.refreshThings(args.players, args.market);

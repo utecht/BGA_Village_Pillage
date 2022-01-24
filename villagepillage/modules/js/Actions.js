@@ -25,6 +25,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.takeAction('actPlayCard', {side: side, card_id: cardId});
       this.selectedCardId = null;
       dojo.query('.selected-card').removeClass('selected-card');
-    }
+    },
+
+    onEndClick(evt){
+      dojo.stopEvent(evt);
+      this.takeAction('actEndTurn');
+    },
   });
 });
