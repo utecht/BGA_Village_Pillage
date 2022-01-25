@@ -2,6 +2,7 @@
 namespace VP\Cards;
 use VP\Models\Card;
 use VP\Notifications\BuyRelic;
+use VP\Notifications\Gain;
 
 class Doctor extends Card {
 	public function buy(&$player, $opposing_card, &$opposing_player) {
@@ -10,7 +11,7 @@ class Doctor extends Card {
 			$player->income(2);
 			$player->updateIncome();
 			Gain::gain($player, $this, 2);
-			return true;
+			Cards::setState($opposing_card->id, CARD_EXHAUSTED);
 		} else {
 			BuyRelic::buyRelic($player, $this, $did_buy);
 		}

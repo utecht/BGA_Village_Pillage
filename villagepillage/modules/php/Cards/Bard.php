@@ -10,8 +10,8 @@ class Bard extends Card {
 	public function buy(&$player, $opposing_card, &$opposing_player) {
 		$did_buy = $player->buyRelic(0);
 		if ($did_buy === false) {
-			Cards::pickOneForLocation(['deck'], ['hand', $player->id]);
-			GainCard::gainCard($player, $this);
+			$card = Cards::pickOneForLocation(['deck'], ['hand', $player->id]);
+			GainCard::gainCard($player, $card);
 			$player->income(1);
 			$player->updateIncome();
 			Gain::gain($player, $this, 1);
