@@ -47,4 +47,9 @@ class PlayerTokens extends \VP\Helpers\DB_Manager {
 		return $players;
 	}
 
+	public function getAll() {
+		$players = self::DB()->get(false);
+		return $players;
+	}
+
 }

@@ -81,7 +81,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       remaining.forEach((player) => {
         this.setupPlayer(player, 'remaining-opponents');
       });
-      dojo.query('.card-wrapper').connect('onclick', this, 'onCardClick');
+      dojo.query('.card-click-target').connect('onclick', this, 'onCardClick');
       dojo.query(`#player-left-${this.player_id}`).connect('onclick', this, 'onZoneClick');
       dojo.query(`#player-right-${this.player_id}`).connect('onclick', this, 'onZoneClick');
     },
@@ -92,7 +92,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         const card = market[card_id];
         this.place('tplCard', card, `market`);
       }
-      dojo.query('#market .card-wrapper').connect('onclick', this, 'onCardClick');
     },
 
     refreshMarket(market){
@@ -102,10 +101,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         const card = market[card_id];
         this.place('tplCard', card, `market`);
       }
-      dojo.query('#market .card-wrapper').connect('onclick', this, 'onCardClick');
+      dojo.query('#market .card-click-target').connect('onclick', this, 'onCardClick');
     },
 
     refreshBank(player){
+      console.log(player);
       dojo.destroy(`player-bank-${player.id}`);
       this.place('tplBank', player, `player-bank-area-${player.id}`);
       for(let t = 1; t <= player.bank; t++){

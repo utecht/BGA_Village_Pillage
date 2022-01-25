@@ -34,6 +34,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_gainCard(args){
       const player_id = args.args.player_id;
+      if(player_id == this.player_id){
+        return;
+      }
       const target = `player-hand-${player_id}`;
       const card_id = `placeholder-deck-${player_id}`;
       this.place('tplPlaceHolder', {side: 'deck', player_id: player_id}, 'deck');
@@ -48,14 +51,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card = args.args.card;
       const card_id = `card_${card.id}`;
       const player_id = args.args.player_id;
-      const target = `next-card-target`;
-      this.place('tplPlaceHolder', {side: 'deck', player_id: player_id}, 'deck');
-      this.slide('placeholder-deck-${player_id}', target);
-      this.wait(800).then(resolve => {
-        this.flipAndReplace(`placeholder-deck-${player_id}`, this.tplCard(card));
-        this.wait(500).then(resolve => {
-          dojo.connect(card_id, 'onclick', this, 'onCardClick');
-        });
+      const target = `player-hand-${player_id}`;
+      this.place('tplPlaceHolder', {side: card.id, player_id: player_id}, 'deck');
+      this.flipAndReplace(`placeholder-${card.id}-${player_id}`, this.tplCard(card), 500);
+      let _this = this;
+      this.wait(500).then(resolve => {
+        this.slide(card_id, target, {duration: 500});
+        dojo.query(`#${card_id}`).connect('onclick', _this, 'onCardClick');
       });
     },
 
@@ -63,16 +65,23 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card = args.args.card;
       const card_id = `card_${card.id}`;
       this.place('tplPlaceHolder', {side: 'deck', player_id: 'newCard'}, 'deck');
-      this.slide('placeholder-deck-newCard', 'market-target', {duration: 500});
-      this.wait(800).then(resolve => {
-        this.flipAndReplace(`placeholder-deck-newCard`, this.tplCard(card), 500);
-        this.wait(500).then(resolve => {
-          dojo.connect(card_id, 'onclick', this, 'onCardClick');
-        });
+      this.flipAndReplace(`placeholder-deck-newCard`, this.tplCard(card), 500);
+      let _this = this;
+      this.wait(500).then(resolve => {
+        this.slide(card_id, 'market', {duration: 500});
+        dojo.query(`#${card_id}`).connect('onclick', _this, 'onCardClick');
       });
     },
 
     notif_reveal(args){
+      this.players = args.args.players;
+      for(const player_id in this.players){
+        this.players[player_id].supply = parseInt(this.players[player_id].supply);
+        this.players[player_id].bank = parseInt(this.players[player_id].bank);
+        this.players[player_id].relic = parseInt(this.players[player_id].relic);
+        this.players[player_id].id = player_id;
+      }
+      console.log(this.players);
       for(const card_id in args.args.cards){
         const card = args.args.cards[card_id];
         if(card.pId != this.player_id){
@@ -102,14 +111,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_gain(args){
+      console.log(this.players);
       const player = args.args.player;
       const card = args.args.card;
       const amount = args.args.amount;
       this.place('tplTurnipSmall', args.args, `player-${card.side}-${player.id}-slide`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
+      this.players[player.id].supply += parseInt(amount);
       this.wait(800).then(resolve => {
-        this.refreshBank(player);
+        this.refreshBank(this.players[player.id]);
       });
     },
 
@@ -120,10 +130,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card = args.args.card;
       this.place('tplTurnipSmall', args.args, `turnip-supply-${target.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
-      this.refreshBank(target);
+      this.players[player.id].supply += parseInt(amount);
+      this.players[target.id].supply -= parseInt(amount);
+      this.refreshBank(this.players[target.id]);
       this.wait(800).then(resolve => {
-        this.refreshBank(player);
+        this.refreshBank(this.players[player.id]);
       });
     },
 
@@ -134,10 +145,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card = args.args.card;
       this.place('tplTurnipSmall', args.args, `bank-turnip-${parseInt(target.bank) + 1}-${target.id}`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
-      this.refreshBank(target);
+      this.players[player.id].supply += parseInt(amount);
+      this.players[target.id].bank -= parseInt(amount);
+      this.refreshBank(this.players[target.id]);
       this.wait(800).then(resolve => {
-        this.refreshBank(player);
+        this.refreshBank(this.players[player.id]);
       });
     },
 
@@ -145,12 +157,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const player = args.args.player;
       const amount = args.args.amount;
       const card = args.args.card;
-      player.bank = parseInt(player.bank) + parseInt(amount);
-      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) - parseInt(amount);
+      this.players[player.id].supply -= parseInt(amount);
+      this.players[player.id].bank += parseInt(amount);
       this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}-target`);
-      this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${player.bank}-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
+      this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${this.players[player.id].bank}-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
       this.wait(800).then(resolve => {
-        this.refreshBank(player);
+        this.refreshBank(this.players[player.id]);
       });
     },
 
@@ -166,13 +178,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         type = 'throne';
       }
       args.args['type'] = type;
-      player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) - parseInt(amount);
+      this.players[player.id].supply -= parseInt(amount);
+      if(this.players[player.id].supply < 0){
+        this.players[player.id].bank -= this.players[player.id].supply * -1;
+        this.players[player.id].supply = 0;
+      }
       this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `player-${card.side}-${player.id}-slide`, {destroy: true});
       this.place('tplVictorySmall', args.args, `player-${card.side}-${player.id}-slide`)
       this.slide(`t_${type}_${player.id}`, `${type}-target-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
+      this.refreshBank(this.players[player.id]);
+      this.players[player.id].relic += 1;
       this.wait(800).then(resolve => {
-        this.refreshBank(player);
+        this.refreshBank(this.players[player.id]);
         this.scoreCtrl[player.id].incValue(1);
       });
     },

@@ -110,7 +110,7 @@ class Player extends \VP\Helpers\DB_Model {
 		$token = $this->getToken();
 		if ($amount > $token->supply) {
 			$remaining = $amount - $token->supply;
-			$token->incSupply($token->supply * -1);
+			$token->setSupply(0);
 			$token->incBank($remaining * -1);
 		} else {
 			$token->incSupply($amount * -1);
