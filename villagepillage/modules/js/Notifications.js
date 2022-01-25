@@ -16,7 +16,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const side = args.args.card_side;
       const target = `player-${side}-${player_id}`;
       for(const old_hand of dojo.query(`#${target} .card-wrapper`)){
-        this.slide(old_hand.id, `next-card-target`);
+        this.slide(old_hand.id, `player-hand-${player_id}`);
       }
       this.slide(card_id, target);
     },
@@ -24,7 +24,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_buyCard(args){
       const card_id = `card_${args.args.card.id}`;
       const player_id = args.args.player_id;
-      const target = `next-card-target`;
+      const target = `player-hand-${player_id}`;
       if(player_id == this.player_id){
         this.slide(card_id, target);
       } else {
