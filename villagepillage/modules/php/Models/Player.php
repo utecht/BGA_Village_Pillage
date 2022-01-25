@@ -161,7 +161,8 @@ class Player extends \VP\Helpers\DB_Model {
 	}
 
 	public function payThieves() {
-		if (count($this->stolen) === 0) {
+		$thief_count = count($this->stolen);
+		if ($thief_count === 0) {
 			return;
 		}
 		$total_stolen = 0;
@@ -173,10 +174,10 @@ class Player extends \VP\Helpers\DB_Model {
 		$stolen_amount = 0;
 		if ($total_stolen > $token->supply) {
 			// on even steal, divide equally
-			if ($token->supply % 2 == 0) {
-				$stolen_amount = $token->supply / 2;
+			if ($token->supply % $thief_count == 0) {
+				$stolen_amount = $token->supply / $thief_count;
 			} else {
-				$stolen_amount = intval(floor($token->supply / 2));
+				$stolen_amount = intval(floor($token->supply / $thief_count));
 				$remainder = 1;
 			}
 			$token->setSupply(0);
@@ -234,7 +235,8 @@ class Player extends \VP\Helpers\DB_Model {
 			}
 		}
 
-		if (count($bankThieves) === 0) {
+		$thief_count = count($bankThieves);
+		if ($thief_count === 0) {
 			return;
 		}
 
@@ -246,10 +248,10 @@ class Player extends \VP\Helpers\DB_Model {
 		$stolen_amount = 0;
 		if ($total_stolen > $token->bank) {
 			// on even steal, divide equally
-			if ($token->bank % 2 == 0) {
-				$stolen_amount = $token->bank / 2;
+			if ($token->bank % $thief_count == 0) {
+				$stolen_amount = $token->bank / $thief_count;
 			} else {
-				$stolen_amount = intval(floor($token->bank / 2));
+				$stolen_amount = intval(floor($token->bank / $thief_count));
 				$remainder = 1;
 			}
 			$token->setBank(0);
