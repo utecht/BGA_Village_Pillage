@@ -1,5 +1,6 @@
 <?php
 namespace VP\Cards;
+use VP\Managers\Cards;
 use VP\Models\Card;
 use VP\Notifications\BuyRelic;
 use VP\Notifications\Gain;

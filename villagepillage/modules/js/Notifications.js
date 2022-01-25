@@ -25,11 +25,20 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card_id = `card_${args.args.card.id}`;
       const player_id = args.args.player_id;
       const target = `player-hand-${player_id}`;
+      const amount = parseInt(args.args.amount);
       if(player_id == this.player_id){
         this.slide(card_id, target);
       } else {
         this.fadeOutAndDestroy(card_id);
       }
+      this.players[player_id].supply -= amount;
+      if(this.players[player_id].supply < 0){
+        this.players[player_id].bank -= this.players[player_id].supply * -1;
+        this.players[player_id].supply = 0;
+      }
+      this.wait(800).then(resolve => {
+        this.refreshBank(this.players[player_id]);
+      });
     },
 
     notif_gainCard(args){
@@ -114,10 +123,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       console.log(this.players);
       const player = args.args.player;
       const card = args.args.card;
-      const amount = args.args.amount;
+      const amount = parseInt(args.args.amount);
       this.place('tplTurnipSmall', args.args, `player-${card.side}-${player.id}-slide`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      this.players[player.id].supply += parseInt(amount);
+      this.players[player.id].supply += amount;
       this.wait(800).then(resolve => {
         this.refreshBank(this.players[player.id]);
       });
@@ -126,12 +135,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_steal(args){
       const player = args.args.player;
       const target = args.args.target;
-      const amount = args.args.amount;
+      const amount = parseInt(args.args.amount);
       const card = args.args.card;
       this.place('tplTurnipSmall', args.args, `turnip-supply-${target.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      this.players[player.id].supply += parseInt(amount);
-      this.players[target.id].supply -= parseInt(amount);
+      this.players[player.id].supply += amount;
+      this.players[target.id].supply -= amount;
       this.refreshBank(this.players[target.id]);
       this.wait(800).then(resolve => {
         this.refreshBank(this.players[player.id]);
@@ -141,12 +150,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_stealBank(args){
       const player = args.args.player;
       const target = args.args.target;
-      const amount = args.args.amount;
+      const amount = parseInt(args.args.amount);
       const card = args.args.card;
-      this.place('tplTurnipSmall', args.args, `bank-turnip-${parseInt(target.bank) + 1}-${target.id}`);
+      const bank_num = this.players[target.id].bank - amount;
+      this.place('tplTurnipSmall', args.args, `bank-turnip-${bank_num}-${target.id}`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
-      this.players[player.id].supply += parseInt(amount);
-      this.players[target.id].bank -= parseInt(amount);
+      this.players[player.id].supply += amount;
+      this.players[target.id].bank -= amount;
       this.refreshBank(this.players[target.id]);
       this.wait(800).then(resolve => {
         this.refreshBank(this.players[player.id]);
@@ -155,10 +165,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_bank(args){
       const player = args.args.player;
-      const amount = args.args.amount;
+      const amount = parseInt(args.args.amount);
       const card = args.args.card;
-      this.players[player.id].supply -= parseInt(amount);
-      this.players[player.id].bank += parseInt(amount);
+      this.players[player.id].supply -= amount;
+      this.players[player.id].bank += amount;
       this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${this.players[player.id].bank}-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
       this.wait(800).then(resolve => {
@@ -169,7 +179,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_buyRelic(args){
       const player = args.args.player;
       const card = args.args.card;
-      const amount = args.args.amount;
+      const amount = parseInt(args.args.amount);
       let type = 'scepter';
       if(player.relic == 2){
         type = 'crown';
@@ -178,7 +188,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         type = 'throne';
       }
       args.args['type'] = type;
-      this.players[player.id].supply -= parseInt(amount);
+      this.players[player.id].supply -= amount;
       if(this.players[player.id].supply < 0){
         this.players[player.id].bank -= this.players[player.id].supply * -1;
         this.players[player.id].supply = 0;

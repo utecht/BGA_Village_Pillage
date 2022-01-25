@@ -87,7 +87,8 @@
 #remaining-opponents {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; }
+  justify-content: center;
+  transform: rotate(180deg); }
 
 .foo-card {
   width: 100px;

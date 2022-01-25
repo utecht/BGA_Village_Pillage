@@ -72,7 +72,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       remaining_ids.forEach((player_id) => {
         remaining.push(this.getPlayer(player_id));
       });
-      remaining.reverse();
 
       console.log(left_player, you, right_player);
       console.log(remaining);

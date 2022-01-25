@@ -38,10 +38,10 @@ trait MerchantsTrait {
 		$merchant = Cards::get($merchant_id);
 		$owner = Players::get($merchant->pId);
 		$opposing_player = Players::getNextId($merchant->pId);
-		$opposing_card = Cards::getPlayerLeft($merchant->pId);
+		$opposing_card = Cards::getPlayerLeft($opposing_player);
 		if ($merchant->side == 'left') {
 			$opposing_player = Players::getPrevId($merchant->pId);
-			$opposing_card = Cards::getPlayerRight($merchant->pId);
+			$opposing_card = Cards::getPlayerRight($opposing_player);
 		}
 		$players = Players::getAll();
 		$merchant->gain($owner, $opposing_card, $opposing_player);
