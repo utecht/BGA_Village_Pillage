@@ -19,7 +19,7 @@ class Treasury extends Card {
 	}
 
 	public function bank(&$player, $opposing_card, &$opposing_player) {
-		$player->bank(4);
-		Bank::bank($player, $this, 4);
+		$banked = $player->bank(4);
+		Bank::bank($player, $this, $banked);
 	}
 }

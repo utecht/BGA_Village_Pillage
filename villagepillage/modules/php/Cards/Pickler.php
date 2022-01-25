@@ -12,8 +12,8 @@ class Pickler extends Card {
 
 	public function bank(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color !== CARD_RED) {
-			$player->bank(2);
-			Bank::bank($player, $this, 2);
+			$banked = $player->bank(2);
+			Bank::bank($player, $this, $banked);
 		}
 	}
 }

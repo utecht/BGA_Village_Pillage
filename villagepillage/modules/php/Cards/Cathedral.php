@@ -15,8 +15,8 @@ class Cathedral extends Card {
 
 	public function bank(&$player, $opposing_card, &$opposing_player) {
 		if ($opposing_card->color == CARD_RED) {
-			$player->bank(1);
-			Bank::bank($player, $this, 1);
+			$banked = $player->bank(1);
+			Bank::bank($player, $this, $banked);
 		}
 	}
 

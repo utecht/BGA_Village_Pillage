@@ -84,7 +84,17 @@ class Player extends \VP\Helpers\DB_Model {
 	}
 
 	public function bank($amount) {
+		$startBank = $this->bankIncome;
 		$this->bankIncome += $amount;
+		$token = $this->getToken();
+		$available_supply = $token->supply;
+		if ($available_supply < $this->bankIncome) {
+			$this->bankIncome = $available_supply;
+		}
+		if ($this->bankIncome + $token->bank > 5) {
+			$this->bankIncome = 5 - $token->bank;
+		}
+		return $this->bankIncome - $startBank;
 	}
 
 	public function updateBank() {

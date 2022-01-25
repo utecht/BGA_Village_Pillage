@@ -21,7 +21,7 @@ class Dungeon extends Card {
 		if ($opposing_card->color == CARD_BLUE || $opposing_card->color == CARD_RED) {
 			$to_bank = 1;
 		}
-		$player->bank($to_bank);
-		Bank::bank($player, $this, $to_bank);
+		$banked = $player->bank($to_bank);
+		Bank::bank($player, $this, $banked);
 	}
 }
