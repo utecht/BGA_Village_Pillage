@@ -8,7 +8,6 @@ class GainCard extends \VP\Core\Notifications {
 			"player" => $player,
 			"card" => $card,
 		]);
-		$card_side = $card->getSide();
 		self::notifyAll('gainCard', '${player_name} drew top of deck', [
 			"player" => $player,
 		]);

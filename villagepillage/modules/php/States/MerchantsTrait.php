@@ -19,7 +19,6 @@ trait MerchantsTrait {
 				$merchants[] = $card_id;
 			}
 		}
-		// TODO: set this properly
 		Globals::setMerchants($merchants);
 		if (count($merchants) == 0) {
 			Game::get()->gamestate->nextState("none");
@@ -72,8 +71,6 @@ trait MerchantsTrait {
 			Game::get()->gamestate->changeActivePlayer($merchant->pId);
 			Game::get()->gamestate->nextState("buy");
 			return;
-		} else {
-			$owner->incScore();
 		}
 		Game::get()->gamestate->nextState("next");
 	}

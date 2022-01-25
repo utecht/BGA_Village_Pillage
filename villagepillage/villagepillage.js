@@ -43,19 +43,20 @@ define([
     constructor() {
       this._activeStates = [];
       this._notifications = [
-        ['playCard', 50],
-        ['playMyCard', 50],
-        ['refresh', 500],
+        ['playCard', 500],
+        ['playMyCard', 500],
+        ['refresh', 1500],
         ['gain', 1500],
         ['steal', 1500],
         ['stealBank', 1500],
         ['bank', 1500],
-        ['buyCard', 500],
-        ['gainCard', 500],
-        ['gainMyCard', 500],
+        ['buyCard', 1500],
+        ['gainCard', 1500],
+        ['gainMyCard', 1500],
+        ['flipCard', 1500],
         ['poor', 500],
         ['buyRelic', 1500],
-        ['reveal', 1000],
+        ['reveal', 1500],
       ];
 
       // Fix mobile viewport (remove CSS zoom)

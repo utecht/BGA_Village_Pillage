@@ -139,6 +139,7 @@ class Player extends \VP\Helpers\DB_Model {
 		$relic_cost -= $discount;
 		if ($this->getTurnips() >= $relic_cost) {
 			$token->incRelic(1);
+			$this->incScore();
 			$this->spendTurnips($relic_cost);
 			return $relic_cost;
 		}

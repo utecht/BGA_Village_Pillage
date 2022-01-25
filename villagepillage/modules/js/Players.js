@@ -97,6 +97,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     refreshMarket(market){
       dojo.query('#market .card-wrapper').forEach(dojo.destroy);
+      this.place('tplDeck', {}, 'market');
       for(const card_id in market){
         const card = market[card_id];
         this.place('tplCard', card, `market`);

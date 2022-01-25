@@ -38,6 +38,15 @@
   border: 3px solid blue;
 }
 
+#deck {
+  position: absolute;
+  z-index: 1;
+}
+
+#market-target {
+  order: 99;
+}
+
 .card-wrapper{
   max-width: 133px;
   max-height: 192px;

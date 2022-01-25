@@ -11,9 +11,28 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		  return `
 		    <div class="player-container" style='border-color:gold'>
 		      <div class='player-name' style='color:gold'>Market</div>
-		      <div id="market" class="market"></div>
+		      <div id="market" class="market">
+			    <div class='card-wrapper'>
+				    <div id="deck"></div>
+			    	<div class='card-border'>
+					    <div class='card card_back'></div>
+				    </div>
+			    </div>
+			    <div id="market-target"></div>
+		      </div>
 		    </div>
 		  `;
+		},
+
+		tplDeck(){
+			return `
+			    <div class='card-wrapper'>
+				    <div id="deck"></div>
+			    	<div class='card-border'>
+					    <div class='card card_back'></div>
+				    </div>
+			    </div>
+		    `;
 		},
 
 		tplPlayerArea(player) {
@@ -76,7 +95,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		          <div id="bank-turnip-5-${player.id}" class="bank-turnip-5"></div>
 		        </div>
 		      </div>
-		      <div class="player-supply-wrap"><div class="player-supply">${supply}</div></div>
+		      <div class="player-supply-wrap">
+			      <div class="player-supply">
+			      	  <div id="turnip-supply-${player.id}-target" class="turnip-supply-target"></div>
+				      ${supply}
+			      </div>
+		      </div>
 		    </div>
 		  `;
 		},
@@ -132,7 +156,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		    <div class='player-container'
 		         style='border-color:#${player.color}'>
 		         <div class='player-name' style='color:#${player.color}'>Your Hand</div>
-		         <div id='player-hand-${player.id}' class='player-hand'></div>
+		         <div id='player-hand-${player.id}' class='player-hand'>
+		         	<div id="next-card-target" class="empty-slide-target"></div>
+		         </div>
 		    </div>
 		  `;
 
@@ -161,7 +187,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		tplPlaceHolder(args){
 		  return `
 		    <div id="placeholder-${args.side}-${args.player_id}" class='card-wrapper'>
-			    <div class='card card_back'></div>
+		    	<div class='card-border'>
+				    <div class='card card_back'></div>
+			    </div>
 		    </div>
 		  `;
 		},

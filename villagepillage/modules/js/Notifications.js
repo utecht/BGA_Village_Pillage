@@ -16,7 +16,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const side = args.args.card_side;
       const target = `player-${side}-${player_id}`;
       for(const old_hand of dojo.query(`#${target} .card-wrapper`)){
-        this.slide(old_hand.id, `player-hand-${player_id}`);
+        this.slide(old_hand.id, `next-card-target`);
       }
       this.slide(card_id, target);
     },
@@ -24,7 +24,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_buyCard(args){
       const card_id = `card_${args.args.card.id}`;
       const player_id = args.args.player_id;
-      const target = `player-hand-${player_id}`;
+      const target = `next-card-target`;
       if(player_id == this.player_id){
         this.slide(card_id, target);
       } else {
@@ -33,7 +33,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_gainCard(args){
-      // slide a card off the deck to player
+      const player_id = args.args.player_id;
+      const target = `player-hand-${player_id}`;
+      const card_id = `placeholder-deck-${player_id}`;
+      this.place('tplPlaceHolder', {side: 'deck', player_id: player_id}, 'deck');
+      this.slide(card_id, `player-bank-area-${player_id}`, {destroy: true});
     },
 
     notif_poor(args){
@@ -41,11 +45,31 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_gainMyCard(args){
-      const card_id = `card_${args.args.card.id}`;
+      const card = args.args.card;
+      const card_id = `card_${card.id}`;
       const player_id = args.args.player_id;
-      const target = `player-hand-${player_id}`;
-      this.place('tplCard', card, target);
-      dojo.connect(card_id, 'onclick', this, 'onCardClick');
+      const target = `next-card-target`;
+      this.place('tplPlaceHolder', {side: 'deck', player_id: player_id}, 'deck');
+      this.slide('placeholder-deck-${player_id}', target);
+      this.wait(800).then(resolve => {
+        this.flipAndReplace(`placeholder-deck-${player_id}`, this.tplCard(card));
+        this.wait(500).then(resolve => {
+          dojo.connect(card_id, 'onclick', this, 'onCardClick');
+        });
+      });
+    },
+
+    notif_flipCard(args){
+      const card = args.args.card;
+      const card_id = `card_${card.id}`;
+      this.place('tplPlaceHolder', {side: 'deck', player_id: 'newCard'}, 'deck');
+      this.slide('placeholder-deck-newCard', 'market-target', {duration: 500});
+      this.wait(800).then(resolve => {
+        this.flipAndReplace(`placeholder-deck-newCard`, this.tplCard(card), 500);
+        this.wait(500).then(resolve => {
+          dojo.connect(card_id, 'onclick', this, 'onCardClick');
+        });
+      });
     },
 
     notif_reveal(args){
@@ -94,7 +118,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const target = args.args.target;
       const amount = args.args.amount;
       const card = args.args.card;
-      this.place('tplTurnipSmall', args.args, `turnip-supply-${target.id}`);
+      this.place('tplTurnipSmall', args.args, `turnip-supply-${target.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `turnip-supply-${player.id}`, {destroy: true});
       player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) + parseInt(amount);
       this.refreshBank(target);
@@ -123,7 +147,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       const card = args.args.card;
       player.bank = parseInt(player.bank) + parseInt(amount);
       player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) - parseInt(amount);
-      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}`);
+      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `bank-turnip-${player.bank}-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});
       this.wait(800).then(resolve => {
         this.refreshBank(player);
@@ -143,7 +167,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
       args.args['type'] = type;
       player.supply = parseInt(dojo.byId(`turnip-supply-${player.id}`).innerHTML) - parseInt(amount);
-      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}`);
+      this.place('tplTurnipSmall', args.args, `turnip-supply-${player.id}-target`);
       this.slide(`t_${card.id}_${player.id}`, `player-${card.side}-${player.id}-slide`, {destroy: true});
       this.place('tplVictorySmall', args.args, `player-${card.side}-${player.id}-slide`)
       this.slide(`t_${type}_${player.id}`, `${type}-target-${player.id}`, {destroy: true, pos: {x: '0px', y: '0px'}});

@@ -6,6 +6,7 @@ use VP\Core\Globals;
 use VP\Helpers\UserException;
 use VP\Managers\Players;
 use VP\Notifications\BuyCard;
+use VP\Notifications\FlipCard;
 use VP\Notifications\PlayCard;
 use VP\Notifications\Poor;
 
@@ -69,8 +70,9 @@ class Cards extends \VP\Helpers\Pieces {
 		}
 		$player->spendTurnips($amount);
 		self::move($cardId, ['hand', $pId]);
-		Cards::pickOneForLocation(['deck'], ['market']);
+		$new_card = Cards::pickOneForLocation(['deck'], ['market']);
 		BuyCard::buyCard($player, $card, $amount);
+		FlipCard::flipCard($new_card);
 		Game::get()->gamestate->nextState("done");
 	}
 
