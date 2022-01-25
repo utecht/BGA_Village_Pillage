@@ -25,7 +25,7 @@
   .player-container .player-name {
     background-color: white;
     border-radius: 5px;
-    width: 100px;
+    min-width: 100px;
     margin: 2px;
     text-align: center;
     border: 1px solid black;

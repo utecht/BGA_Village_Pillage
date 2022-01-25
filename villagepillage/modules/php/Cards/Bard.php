@@ -9,7 +9,7 @@ use VP\Notifications\GainCard;
 class Bard extends Card {
 	public function buy(&$player, $opposing_card, &$opposing_player) {
 		$did_buy = $player->buyRelic(0);
-		if ($did_buy === false) {
+		if ($did_buy == false) {
 			$card = Cards::pickOneForLocation(['deck'], ['hand', $player->id]);
 			GainCard::gainCard($player, $card);
 			$player->income(1);
