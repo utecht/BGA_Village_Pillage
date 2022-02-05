@@ -25,6 +25,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       for(let player in players){
         this.refreshBank(players[player]);
       }
+      this.updateCardTooltips();
     },
   });
 });

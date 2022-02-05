@@ -732,7 +732,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui'], (dojo, declare) => {
     /**
      * Tooltip to work with help mode
      */
-    addCustomTooltip(id, html, delay) {
+    addCustomTooltip(id, html, delay=400) {
       if (this.tooltips[id]) {
         this.tooltips[id].destroy();
       }

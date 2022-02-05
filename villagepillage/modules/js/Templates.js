@@ -190,8 +190,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		  return `
 		    <div id="card_${card.id}" class='card-wrapper card-click-target'>
 		    	<div class='card-border'>
-				    <div class='card card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div>
+				    <div class='card tooltip-target card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div>
 			    </div>
+		    </div>
+		  `;
+		},
+
+		tplCardTooltip(card) {
+		  return `
+		    <div id="card_tooltip_${card.id}" class='card-tooltip-wrapper'>
+			    <div class='card-tooltip card_${card.name}'></div>
 		    </div>
 		  `;
 		},
@@ -200,7 +208,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		  return `
 		    <div id="card_${card.id}" class='card-wrapper other-player-card'>
 		    	<div class='card-border'>
-				    <div class='card card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div>
+				    <div class='card tooltip-target card_${card.name}' data-id='${card.id}' data-name='${card.name}'></div>
 			    </div>
 		    </div>
 		  `;

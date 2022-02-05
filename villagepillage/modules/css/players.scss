@@ -76,6 +76,10 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+
+  .card-wrapper {
+    margin: 10px;
+  }
 }
 
 .market {
@@ -83,6 +87,10 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+
+  .card-wrapper {
+    margin: 10px;
+  }
 }
 
 #your-row {

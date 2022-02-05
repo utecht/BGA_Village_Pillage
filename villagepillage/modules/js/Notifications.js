@@ -39,6 +39,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.wait(800).then(resolve => {
         this.refreshBank(this.players[player_id]);
       });
+      this.updateCardTooltips();
     },
 
     notif_gainCard(args){
@@ -68,6 +69,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.slide(card_id, target, {duration: 500});
         dojo.query(`#${card_id}`).connect('onclick', _this, 'onCardClick');
       });
+      this.updateCardTooltips();
     },
 
     notif_flipCard(args){
@@ -80,6 +82,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.slide(card_id, 'market', {duration: 500});
         dojo.query(`#${card_id}`).connect('onclick', _this, 'onCardClick');
       });
+      this.updateCardTooltips();
     },
 
     notif_reveal(args){
@@ -90,7 +93,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.players[player_id].relic = parseInt(this.players[player_id].relic);
         this.players[player_id].id = player_id;
       }
-      console.log(this.players);
       for(const card_id in args.args.cards){
         const card = args.args.cards[card_id];
         if(card.pId != this.player_id){
@@ -98,6 +100,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           this.flipAndReplace(placeholder, this.tplOtherCard(card));
         }
       }
+      this.updateCardTooltips();
     },
 
     notif_refresh(args){
@@ -117,6 +120,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
       dojo.query('.player-left .card-wrapper').forEach(dojo.destroy);
       dojo.query('.player-right .card-wrapper').forEach(dojo.destroy);
+      this.updateCardTooltips();
     },
 
     notif_gain(args){
