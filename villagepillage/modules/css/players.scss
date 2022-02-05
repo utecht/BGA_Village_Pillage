@@ -90,11 +90,20 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
+  min-height: 400px;
 }
 
 #remaining-opponents {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  transform: rotate(180deg);
+  flex-direction: row-reverse;
+}
+
+.my-container {
+  align-self: flex-start;
+}
+
+.other-container {
+  align-self: flex-end;
 }

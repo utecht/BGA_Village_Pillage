@@ -37,7 +37,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
 		tplPlayerArea(player) {
 		  return `
-		    <div class='player-container' style='border-color:#${player.color};margin-top:3em'>
+		    <div class='player-container other-container' style='border-color:#${player.color}'>
 		      <div class='player-name' style='color:#${player.color}'>${player.name}</div>
 		      <div class='player-area'>
 		        <div class='player-left' id="player-left-${player.id}">
@@ -57,9 +57,31 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 		  `;
 		},
 
+		tplReversedPlayerArea(player) {
+		  return `
+		    <div class='player-container reversed-container' style='border-color:#${player.color}'>
+		      <div class='player-name' style='color:#${player.color}'>${player.name}</div>
+		      <div class='player-area'>
+		        <div class='player-left' id="player-right-${player.id}">
+			        <i class="fa fa-arrow-left"></i>
+		        	<div id="player-right-${player.id}-slide" class="slide-target"></div>
+		        </div>
+		        <div>
+		          <div id="player-bank-area-${player.id}"></div>
+		          <div class='player-exhausted other-exhausted' id="player-exhausted-${player.id}"></div>
+		        </div>
+		        <div class='player-right' id="player-left-${player.id}">
+			        <i class="fa fa-arrow-right"></i>
+		        	<div id="player-left-${player.id}-slide" class="slide-target"></div>
+		        </div>
+		      </div>
+		    </div>
+		  `;
+		},
+
 		tplMyPlayerArea(player) {
 		  return `
-		    <div class='player-container' style='border-color:#${player.color};margin-bottom: 3em'>
+		    <div class='player-container my-container' style='border-color:#${player.color}'>
 		      <div id="player-name-${player.id}" class='player-name' style='color:#${player.color}'>You</div>
 		      <div class='player-area'>
 		        <div class='player-left' id="player-left-${player.id}">

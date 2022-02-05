@@ -17,11 +17,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return this.gamedatas.players[this.player_id];
     },
 
-    setupPlayer(player, target_area){
+    setupPlayer(player, target_area, reversed=false){
       if(player.id == this.player_id){
         this.place('tplMyPlayerArea', player, target_area);
       } else {
-        this.place('tplPlayerArea', player, target_area);
+        if(reversed){
+          this.place('tplReversedPlayerArea', player, target_area);
+        } else {
+          this.place('tplPlayerArea', player, target_area);
+        }
       }
       this.place('tplBank', player, `player-bank-area-${player.id}`);
       for(let t = 1; t <= player.bank; t++){
@@ -79,7 +83,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.setupPlayer(you, 'your-row');
       this.setupPlayer(right_player, 'your-row');
       remaining.forEach((player) => {
-        this.setupPlayer(player, 'remaining-opponents');
+        this.setupPlayer(player, 'remaining-opponents', true);
       });
       dojo.query('.card-click-target').connect('onclick', this, 'onCardClick');
       dojo.query(`#player-left-${this.player_id}`).connect('onclick', this, 'onZoneClick');
