@@ -69,6 +69,7 @@ trait MerchantsTrait {
 			Globals::setBuyer($merchant->id);
 			Globals::setBuyPrice($merchant->buyPrice);
 			Game::get()->gamestate->changeActivePlayer($merchant->pId);
+			Game::get()->giveExtraTime($merchant->pId);
 			Game::get()->gamestate->nextState("buy");
 			return;
 		}

@@ -13,6 +13,7 @@ trait RefreshTrait {
 		$players = Players::getAll();
 		$game_ending = false;
 		foreach ($players as $player) {
+			Game::get()->giveExtraTime($player->getId());
 			if ($player->getToken()->relic == RELIC_THREE) {
 				$game_ending = true;
 			}
