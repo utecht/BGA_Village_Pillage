@@ -1,4 +1,7 @@
-.DS_STORE
+.DS_Store
 sync.sh
-.sass-cache
 art/
+phpunit
+.phpunit.result.cache
+phpab
+autoload.php
