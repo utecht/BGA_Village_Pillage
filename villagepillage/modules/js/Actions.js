@@ -9,9 +9,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         return;
       }
       if(this.selectedCardId === cardId){
+        this.highlightPlayCards();
         this.selectedCardId = null;
       } else {
-        dojo.query('.selected-card').removeClass('selected-card');
+        this.highlightZones();
         this.selectedCardId = cardId;
       }
       dojo.toggleClass(evt.currentTarget.id, 'selected-card');
@@ -26,11 +27,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
       this.takeAction('actPlayCard', {side: side, card_id: cardId});
       this.selectedCardId = null;
+      this.highlightPlayCards();
       dojo.query('.selected-card').removeClass('selected-card');
     },
 
     onEndClick(evt){
       dojo.stopEvent(evt);
+      dojo.query('vp-possible-move').removeClass('vp-possible-move');
       this.takeAction('actEndTurn');
     },
   });

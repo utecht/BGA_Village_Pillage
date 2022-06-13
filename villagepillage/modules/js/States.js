@@ -3,6 +3,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     onEnteringStatePlayerTurn(args){
       this.buying = false;
       this.refreshThings(args.players, args.market);
+      this.highlightPlayCards();
+    },
+
+    onLeavingStatePlayerTurn(args){
+      dojo.query('.vp-possible-move').addClass('vp-possible-move');
     },
 
     onUpdateActivityPlayerTurn(args, status){
@@ -13,6 +18,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.buying = true;
       this.refreshThings(args.players, args.market);
       this.players = args.players;
+      this.highlightBuyCards();
       for(const player_id in this.players){
         this.players[player_id].supply = parseInt(this.players[player_id].supply);
         this.players[player_id].bank = parseInt(this.players[player_id].bank);
